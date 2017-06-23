@@ -25,7 +25,7 @@ class MenuHelper extends Widget
         $cache = Yii::$app->cache;
         $cacheKey = self::CACHE_MENU . Yii::$app->user->id;
         $items = $cache->get($cacheKey);
-        if($items === false){
+        if($items !== false){
             $items = self::handleMenu();
             $cache->set($cacheKey, $items, 1800);
         }
@@ -47,10 +47,8 @@ class MenuHelper extends Widget
                     'url' => $val['route']
                 ];
             }else{
-                $data[$val['id']] = [
-                    'label' => $val['name'],
-                    'icon' => $val['icon']
-                ];
+                $data[$val['id']]['label'] = $val['name'];
+                $data[$val['id']]['icon'] = $val['icon'];
             }
         }
         return $data;
