@@ -109,15 +109,13 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
     <div class="footer">
         <div class="footer-inner">
             <div class="footer-content">
-            <span class="bigger-120">
-                <span class="blue bolder"><?= Yii::$app->name ?></span>
-                &copy; <?php echo date('Y'); ?>
-            </span>
+                <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+                <p class="pull-right"><?= Yii::powered() ?></p>
             </div>
         </div>
     </div>
     <a class="btn-scroll-up btn btn-sm btn-inverse" id="btn-scroll-up" href="#">
-        <i class="icon-double-angle-up icon-only bigger-110"></i>
+        <i class="fa fa-angle-double-up icon-only bigger-110"></i>
     </a>
     <!-- 底部end -->
 </div>
