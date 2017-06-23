@@ -25,6 +25,10 @@ class ComposerStaticInitc3160c95148ab612cbe43919eb9acfcc
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
+        'r' => 
+        array (
+            'rmrevin\\yii\\fontawesome\\' => 24,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -35,6 +39,7 @@ class ComposerStaticInitc3160c95148ab612cbe43919eb9acfcc
         ),
         'c' => 
         array (
+            'cornernote\\ace\\' => 15,
             'cebe\\markdown\\' => 14,
         ),
         'W' => 
@@ -108,6 +113,10 @@ class ComposerStaticInitc3160c95148ab612cbe43919eb9acfcc
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
+        'rmrevin\\yii\\fontawesome\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rmrevin/yii2-fontawesome',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -117,6 +126,10 @@ class ComposerStaticInitc3160c95148ab612cbe43919eb9acfcc
         'mdm\\admin\\' => 
         array (
             0 => __DIR__ . '/..' . '/mdmsoft/yii2-admin',
+        ),
+        'cornernote\\ace\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cornernote/yii2-ace/src',
         ),
         'cebe\\markdown\\' => 
         array (
@@ -201,6 +214,13 @@ class ComposerStaticInitc3160c95148ab612cbe43919eb9acfcc
     );
 
     public static $prefixesPsr0 = array (
+        'c' => 
+        array (
+            'cebe\\gravatar\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/cebe/yii2-gravatar',
+            ),
+        ),
         'P' => 
         array (
             'Prophecy\\' => 

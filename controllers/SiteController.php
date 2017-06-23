@@ -3,14 +3,13 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\models\System;
 use app\models\LoginForm;
-use app\models\ContactForm;
+use yii\filters\AccessControl;
 
-class SiteController extends Controller
+class SiteController extends \yii\web\Controller
 {
     /**
      * @inheritdoc
@@ -20,12 +19,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['index', 'login', 'logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index', 'logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['login'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -48,8 +52,7 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'class' => 'app\components\captcha\CaptchaAction'
             ],
         ];
     }
@@ -61,7 +64,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new System();
+        return $this->render('index',[
+            'model' => $model
+        ]);
     }
 
     /**
@@ -71,6 +77,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = false;
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -79,6 +86,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+        
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -94,33 +102,5 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }

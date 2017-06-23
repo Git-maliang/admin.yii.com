@@ -5,6 +5,7 @@ $db = require(__DIR__ . '/db.php');
 
 $config = [
     'id' => 'basic',
+    'name' => 'Admin',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language'   => 'zh-CN',
@@ -13,7 +14,7 @@ $config = [
             "class" => 'mdm\admin\Module',
             'mainLayout' => '@app/views/layouts/main.php',
             'layout' => 'left-menu',
-        ],
+        ]
     ],
     "aliases" => [
         "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",
@@ -21,9 +22,7 @@ $config = [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'site/*',
-            'admin/*',
-            'some-controller/some-action',
+            '*'
         ]
     ],
     'components' => [

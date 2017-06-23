@@ -15,6 +15,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
+    public $verifyCode;
     public $rememberMe = true;
 
     private $_user = false;
@@ -27,11 +28,23 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
+            [['username', 'password', 'verifyCode'], 'required', 'message' => '{attribute}不能为空。'],
+            // verifyCode needs to be entered correctly
+            ['verifyCode', 'captcha', 'message' => '{attribute}错误。'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+        ];
+    }
+
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户名',
+            'password' => '密码',
+            'verifyCode' => '验证码',
         ];
     }
 
@@ -48,7 +61,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, '用户名或密码错误。');
             }
         }
     }
@@ -60,9 +73,15 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            $result = Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            if($result === false){
+                Yii::$app->getSession()->setFlash('error', '登录失败');
+            }
+            return $result;
+        }else{
+            $firstErrors = $this->firstErrors;
+            Yii::$app->getSession()->setFlash('warning', current($firstErrors));
         }
-        return false;
     }
 
     /**

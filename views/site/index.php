@@ -1,53 +1,86 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: M
+ * Date: 17/6/20
+ * Time: 下午5:08
+ */
+/* @var $model \app\models\System */
+use yii\bootstrap\Html;
 
-/* @var $this yii\web\View */
-
-$this->title = 'My Yii Application';
+$this->title = 'My Admin 登录信息';
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+<h4 class="blue">
+    <span class="middle"><i class="ace-icon glyphicon glyphicon-user light-blue bigger-110"></i></span>
+    账号信息
+</h4>
+<div class="profile-user-info">
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 账号  </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->username); ?></span>
         </div>
-
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 角色  </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->role); ?></span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 上次登录时间  </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->lastTime); ?></span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 上次登录IP  </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->lastIp); ?></span>
+        </div>
     </div>
 </div>
+<div class="hr hr16 dotted"></div>
+<h4 class="blue">
+    <span class="middle"><i class="fa fa-desktop light-blue bigger-110"></i></span>
+    系统信息
+</h4>
+<div class="profile-user-info">
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 操作系统  </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->system); ?></span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 服务器软件 </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->server); ?></span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> MySQL版本 </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->mysql); ?></span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> PHP版本 </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->php); ?></span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> Yii版本 </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->yii); ?></span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 上传文件 </div>
+        <div class="profile-info-value">
+            <span><?= Html::encode($model->upload); ?></span>
+        </div>
+    </div>
+</div>
+<div class="hr dotted"></div>
