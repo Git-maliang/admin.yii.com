@@ -5,7 +5,7 @@
 
 $this->title = 'My Yii Application';
 ?>
-<!--<ul id="tree"></ul>-->
+<ul id="tree"></ul>
 <?php
 $data = [
     [
@@ -90,5 +90,5 @@ $data = [
         ],
     ],
 ];
-//\app\components\widgets\Tree::widget(['data' => $data]);
+\app\components\widgets\Tree::widget(['data' => $data]);
 ?>
