@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'title' => 'Yii-Admin 后台管理系统',
     'adminEmail' => 'admin@example.com',
-    'hiddenMenu' => ['add', 'edit', 'detail', 'auth'],
+    'hiddenMenu' => ['create', 'update', 'detail', 'auth', 'error'],
 ];

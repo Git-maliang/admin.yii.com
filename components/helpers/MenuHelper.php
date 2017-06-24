@@ -25,7 +25,7 @@ class MenuHelper extends Widget
         $cache = Yii::$app->cache;
         $cacheKey = self::CACHE_MENU . Yii::$app->user->id;
         $items = $cache->get($cacheKey);
-        if($items !== false){
+        if($items === false){
             $items = self::handleMenu();
             $cache->set($cacheKey, $items, 1800);
         }
@@ -38,17 +38,17 @@ class MenuHelper extends Widget
      */
     protected static function handleMenu()
     {
-        $menu = Menu::find()->orderBy(['sort' => SORT_ASC])->asArray()->all();
+        $menus = Menu::find()->select(['id', 'pid', 'name', 'route', 'icon'])->orderBy(['pid' => SORT_ASC,'sort' => SORT_ASC])->asArray()->all();
         $data = [];
-        foreach ($menu as $key => $val){
-            if($val['pid']){
-                $data[$val['pid']]['items'][] = [
-                    'label' => $val['name'],
-                    'url' => $val['route']
+        foreach ($menus as $menu){
+            if($menu['pid']){
+                $data[$menu['pid']]['items'][] = [
+                    'label' => $menu['name'],
+                    'url' => $menu['route']
                 ];
             }else{
-                $data[$val['id']]['label'] = $val['name'];
-                $data[$val['id']]['icon'] = $val['icon'];
+                $data[$menu['id']]['label'] = $menu['name'];
+                $data[$menu['id']]['icon'] = $menu['icon'];
             }
         }
         return $data;

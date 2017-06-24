@@ -1,9 +1,11 @@
 <?php
-/* @var $dataProvider \yii\data\ActiveDataProvider */
-/* @var $searchModel \app\models\search\MenuSearch */
+
 use app\components\helpers\Html;
 use app\components\widgets\GridView;
 use app\components\widgets\ActiveForm;
+
+/* @var $dataProvider \yii\data\ActiveDataProvider */
+/* @var $searchModel \app\models\search\MenuSearch */
 
 $this->title = '菜单管理';
 $this->params['breadcrumbs'][] = $this->title;
@@ -11,8 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $form = ActiveForm::begin(['module' => ActiveForm::TYPE_SEARCH]); ?>
 <?= $form->field($searchModel, 'name'); ?>
 <div class="form-group">
-    <?= Html::submitButton('搜 索', ['class' => 'btn btn-info']); ?>
-    <?= Html::a('新 增', ['menu/add'], ['class' => 'btn btn-info', 'target' => '_blank']); ?>
+    <?= Html::submitButton(Yii::t('common', 'Search'), ['class' => 'btn btn-info']); ?>
+    <?= Html::a(Yii::t('common', 'Create'), ['menu/create'], ['class' => 'btn btn-success', 'target' => '_blank']); ?>
+    <?= Html::a(Yii::t('common', 'Menu Sort'), ['menu/sort'], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="hr dotted"></div>

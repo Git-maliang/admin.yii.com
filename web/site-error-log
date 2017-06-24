@@ -1,0 +1,274 @@
+2017-06-24 15:55:27 [127.0.0.1][100][j4om1c97revamsskpqsdl01v26][error][yii\base\ErrorException:256] exception 'yii\base\ErrorException' with message 'Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'Unable to locate message source for category 'rbac-admin'.' 
+
+in G:\WWW\admin.yii.com\vendor\yiisoft\yii2\i18n\I18N.php:200
+
+Stack trace:
+#0 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\i18n\I18N.php(88): yii\i18n\I18N->getMessageSource('rbac-admin')
+#1 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\BaseYii.php(509): yii\i18n\I18N->translate('rbac-admin', 'ID', Array, 'zh-CN')
+#2 G:\WWW\admin.yii.com\vendor\mdmsoft\yii2-admin\models\Menu.php(95): yii\BaseYii::t('rbac-admin', 'ID')
+#3 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\db\BaseActiveRecord.php(1552): mdm\admin\models\Menu->attributeLabels()
+#4 G:\WWW\admin.yii.com\vendor\yiisoft\yii2-bootstrap\ActiveField.php(403): yii\db\BaseActiveRecord->getAttributeLabel('name')
+#5 G:\WWW\admin.yii.com\vendor\yiisoft\yii2-bootstrap\ActiveField.php(176): yii\bootstrap\ActiveField->renderLabelParts()
+#6 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\widgets\ActiveField.php(176): yii\bootstrap\ActiveField->render()
+#7 G:\WWW\admin.yii.com\views\menu\form.php(10): yii\widgets\ActiveField->__toString()
+#8 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(330): require('G:\\WWW\\admin.yi...')
+#9 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('G:\\WWW\\admin.yi...', Array)
+#10 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(152): yii\base\View->renderFile('G:\\WWW\\admin.yi...', Array, Object(app\controllers\MenuController))
+#11 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(381): yii\base\View->render('form', Array, Object(app\controllers\MenuController))
+#12 G:\WWW\admin.yii.com\controllers\MenuController.php(98): yii\base\Controller->render('form', Array)
+#13 G:\WWW\admin.yii.com\controllers\MenuController.php(36): app\controllers\MenuController->save()
+#14 [internal function]: app\controllers\MenuController->actionCreate()
+#15 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#16 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#17 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('create', Array)
+#18 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('menu/create', Array)
+#19 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 G:\WWW\admin.yii.com\web\index.php(17): yii\base\Application->run()
+#21 {main}' in G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\ErrorHandler.php:314
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError('<span class="nu...', '<span class="st...', '<span class="st...', '<span class="nu...', '...')
+#1 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\ErrorHandler.php(314): trigger_error('<span class="st...', '<span class="nu...')
+#2 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\widgets\ActiveField.php(178): yii\base\ErrorHandler::convertExceptionToError(Object(yii\base\InvalidConfigException))
+#3 G:\WWW\admin.yii.com\views\menu\form.php(10): yii\widgets\ActiveField->__toString()
+#4 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(330): require('G:\\WWW\\admin.yi...')
+#5 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('<span class="st...', '[<span class="s...')
+#6 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(152): yii\base\View->renderFile('<span class="st...', '[<span class="s...', Object(app\controllers\MenuController))
+#7 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(381): yii\base\View->render('<span class="st...', '[<span class="s...', Object(app\controllers\MenuController))
+#8 G:\WWW\admin.yii.com\controllers\MenuController.php(98): yii\base\Controller->render('<span class="st...', '[<span class="s...')
+#9 G:\WWW\admin.yii.com\controllers\MenuController.php(36): app\controllers\MenuController->save()
+#10 [internal function]: app\controllers\MenuController->actionCreate()
+#11 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array('[<span class="t...', '[]')
+#12 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams('[]')
+#13 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('<span class="st...', '[]')
+#14 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('<span class="st...', '[]')
+#15 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 G:\WWW\admin.yii.com\web\index.php(17): yii\base\Application->run()
+#17 {main}
+    in G:\WWW\admin.yii.com\views\menu\form.php:10
+    in G:\WWW\admin.yii.com\controllers\MenuController.php:98
+    in G:\WWW\admin.yii.com\controllers\MenuController.php:36
+2017-06-24 15:55:27 [127.0.0.1][100][j4om1c97revamsskpqsdl01v26][info][application] $_COOKIE = [
+    'PHPSESSID' => 'j4om1c97revamsskpqsdl01v26'
+    '_csrf' => '81c2743c31f7fbb3a9300aca490e9c3d696a3a78fc08e10be810c47c57c43190a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Õ)ýbcFWðËºÄÎl²$¬€Äoƒí¼«ˆ0IC±Ÿ\";}'
+    '_identity' => '7b3c1c4ce62c99be6a87c79d2742031231b09e16c2e502ca804d56bb9727ba11a:2:{i:0;s:9:\"_identity\";i:1;s:28:\"[\"100\",\"test100key\",2592000]\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/'
+    '__captcha/site/captcha' => 'witi'
+    '__captcha/site/captchacount' => 1
+    '__id' => '100'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\Common Files\\microsoft shared\\TigerKin;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\Common Files\\microsoft shared\\TigerKin;G:\\Program Files\\nodejs\\;G:\\Program Files\\phpStudy\\php55;C:\\windows\\system32;C:\\windows;C:\\windows\\System32\\Wbem;C:\\ProgramData\\ComposerSetup\\bin;G:\\Program Files\\Git\\bin;C:\\Users\\admin\\AppData\\Roaming\\npm;C:\\Users\\admin\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TigerKin' => 'C:\\Program Files (x86)\\Common Files\\microsoft shared\\TigerKin'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => 'PHPSESSID=j4om1c97revamsskpqsdl01v26; _csrf=81c2743c31f7fbb3a9300aca490e9c3d696a3a78fc08e10be810c47c57c43190a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%D5%29%FDbcFW%02%F0%CB%BA%C4%CEl%B2%24%AC%80%0B%C4o%83%ED%BC%AB%880IC%16%B1%9F%22%3B%7D; _identity=7b3c1c4ce62c99be6a87c79d2742031231b09e16c2e502ca804d56bb9727ba11a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A28%3A%22%5B%22100%22%2C%22test100key%22%2C2592000%5D%22%3B%7D'
+    'HTTP_REFERER' => 'http://admin.yii.com/menu/list?sort=icon'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0'
+    'HTTP_HOST' => 'admin.yii.com'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'admin.yii.com'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '51949'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'G:/WWW/admin.yii.com/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/menu/create'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'G:/WWW/admin.yii.com/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'G:/WWW/admin.yii.com/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1498290927.3646
+    'REQUEST_TIME' => 1498290927
+]
+2017-06-24 15:56:01 [127.0.0.1][100][j4om1c97revamsskpqsdl01v26][error][yii\base\ErrorException:256] exception 'yii\base\ErrorException' with message 'Exception (Invalid Configuration) 'yii\base\InvalidConfigException' with message 'Unable to locate message source for category 'rbac-admin'.' 
+
+in G:\WWW\admin.yii.com\vendor\yiisoft\yii2\i18n\I18N.php:200
+
+Stack trace:
+#0 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\i18n\I18N.php(88): yii\i18n\I18N->getMessageSource('rbac-admin')
+#1 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\BaseYii.php(509): yii\i18n\I18N->translate('rbac-admin', 'ID', Array, 'zh-CN')
+#2 G:\WWW\admin.yii.com\vendor\mdmsoft\yii2-admin\models\Menu.php(95): yii\BaseYii::t('rbac-admin', 'ID')
+#3 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\db\BaseActiveRecord.php(1552): mdm\admin\models\Menu->attributeLabels()
+#4 G:\WWW\admin.yii.com\vendor\yiisoft\yii2-bootstrap\ActiveField.php(403): yii\db\BaseActiveRecord->getAttributeLabel('name')
+#5 G:\WWW\admin.yii.com\vendor\yiisoft\yii2-bootstrap\ActiveField.php(176): yii\bootstrap\ActiveField->renderLabelParts()
+#6 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\widgets\ActiveField.php(176): yii\bootstrap\ActiveField->render()
+#7 G:\WWW\admin.yii.com\views\menu\form.php(10): yii\widgets\ActiveField->__toString()
+#8 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(330): require('G:\\WWW\\admin.yi...')
+#9 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('G:\\WWW\\admin.yi...', Array)
+#10 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(152): yii\base\View->renderFile('G:\\WWW\\admin.yi...', Array, Object(app\controllers\MenuController))
+#11 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(381): yii\base\View->render('form', Array, Object(app\controllers\MenuController))
+#12 G:\WWW\admin.yii.com\controllers\MenuController.php(98): yii\base\Controller->render('form', Array)
+#13 G:\WWW\admin.yii.com\controllers\MenuController.php(36): app\controllers\MenuController->save()
+#14 [internal function]: app\controllers\MenuController->actionCreate()
+#15 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#16 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#17 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('create', Array)
+#18 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('menu/create', Array)
+#19 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#20 G:\WWW\admin.yii.com\web\index.php(17): yii\base\Application->run()
+#21 {main}' in G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\ErrorHandler.php:314
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleError('<span class="nu...', '<span class="st...', '<span class="st...', '<span class="nu...', '...')
+#1 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\ErrorHandler.php(314): trigger_error('<span class="st...', '<span class="nu...')
+#2 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\widgets\ActiveField.php(178): yii\base\ErrorHandler::convertExceptionToError(Object(yii\base\InvalidConfigException))
+#3 G:\WWW\admin.yii.com\views\menu\form.php(10): yii\widgets\ActiveField->__toString()
+#4 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(330): require('G:\\WWW\\admin.yi...')
+#5 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(250): yii\base\View->renderPhpFile('<span class="st...', '[<span class="s...')
+#6 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\View.php(152): yii\base\View->renderFile('<span class="st...', '[<span class="s...', Object(app\controllers\MenuController))
+#7 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(381): yii\base\View->render('<span class="st...', '[<span class="s...', Object(app\controllers\MenuController))
+#8 G:\WWW\admin.yii.com\controllers\MenuController.php(98): yii\base\Controller->render('<span class="st...', '[<span class="s...')
+#9 G:\WWW\admin.yii.com\controllers\MenuController.php(36): app\controllers\MenuController->save()
+#10 [internal function]: app\controllers\MenuController->actionCreate()
+#11 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array('[<span class="t...', '[]')
+#12 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams('[]')
+#13 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('<span class="st...', '[]')
+#14 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('<span class="st...', '[]')
+#15 G:\WWW\admin.yii.com\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#16 G:\WWW\admin.yii.com\web\index.php(17): yii\base\Application->run()
+#17 {main}
+    in G:\WWW\admin.yii.com\views\menu\form.php:10
+    in G:\WWW\admin.yii.com\controllers\MenuController.php:98
+    in G:\WWW\admin.yii.com\controllers\MenuController.php:36
+2017-06-24 15:56:01 [127.0.0.1][100][j4om1c97revamsskpqsdl01v26][info][application] $_COOKIE = [
+    'PHPSESSID' => 'j4om1c97revamsskpqsdl01v26'
+    '_csrf' => '81c2743c31f7fbb3a9300aca490e9c3d696a3a78fc08e10be810c47c57c43190a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"Õ)ýbcFWðËºÄÎl²$¬€Äoƒí¼«ˆ0IC±Ÿ\";}'
+    '_identity' => '7b3c1c4ce62c99be6a87c79d2742031231b09e16c2e502ca804d56bb9727ba11a:2:{i:0;s:9:\"_identity\";i:1;s:28:\"[\"100\",\"test100key\",2592000]\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/'
+    '__captcha/site/captcha' => 'witi'
+    '__captcha/site/captchacount' => 1
+    '__id' => '100'
+]
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\admin\\AppData\\Roaming'
+    'CommonProgramFiles' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'ADMIN-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\admin'
+    'LOCALAPPDATA' => 'C:\\Users\\admin\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADMIN-PC'
+    'NUMBER_OF_PROCESSORS' => '4'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\Common Files\\microsoft shared\\TigerKin;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files (x86)\\Common Files\\microsoft shared\\TigerKin;G:\\Program Files\\nodejs\\;G:\\Program Files\\phpStudy\\php55;C:\\windows\\system32;C:\\windows;C:\\windows\\System32\\Wbem;C:\\ProgramData\\ComposerSetup\\bin;G:\\Program Files\\Git\\bin;C:\\Users\\admin\\AppData\\Roaming\\npm;C:\\Users\\admin\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'x86'
+    'PROCESSOR_ARCHITEW6432' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 60 Stepping 3, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3c03'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files (x86)'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'TigerKin' => 'C:\\Program Files (x86)\\Common Files\\microsoft shared\\TigerKin'
+    'TMP' => 'C:\\Users\\admin\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'admin-PC'
+    'USERNAME' => 'admin'
+    'USERPROFILE' => 'C:\\Users\\admin'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => 'PHPSESSID=j4om1c97revamsskpqsdl01v26; _csrf=81c2743c31f7fbb3a9300aca490e9c3d696a3a78fc08e10be810c47c57c43190a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%D5%29%FDbcFW%02%F0%CB%BA%C4%CEl%B2%24%AC%80%0B%C4o%83%ED%BC%AB%880IC%16%B1%9F%22%3B%7D; _identity=7b3c1c4ce62c99be6a87c79d2742031231b09e16c2e502ca804d56bb9727ba11a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A28%3A%22%5B%22100%22%2C%22test100key%22%2C2592000%5D%22%3B%7D'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0'
+    'HTTP_HOST' => 'admin.yii.com'
+    'REDIRECT_STATUS' => '200'
+    'SERVER_NAME' => 'admin.yii.com'
+    'SERVER_PORT' => '80'
+    'SERVER_ADDR' => '127.0.0.1'
+    'REMOTE_PORT' => '51949'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'SERVER_SOFTWARE' => 'nginx/1.9.9'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'DOCUMENT_ROOT' => 'G:/WWW/admin.yii.com/web'
+    'DOCUMENT_URI' => '/index.php'
+    'REQUEST_URI' => '/menu/create'
+    'SCRIPT_NAME' => '/index.php'
+    'CONTENT_LENGTH' => ''
+    'CONTENT_TYPE' => ''
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'PATH_TRANSLATED' => 'G:/WWW/admin.yii.com/web'
+    'PATH_INFO' => ''
+    'SCRIPT_FILENAME' => 'G:/WWW/admin.yii.com/web/index.php'
+    'FCGI_ROLE' => 'RESPONDER'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1498290961.9036
+    'REQUEST_TIME' => 1498290961
+]

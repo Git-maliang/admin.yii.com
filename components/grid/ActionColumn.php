@@ -15,15 +15,15 @@ class ActionColumn extends \yii\grid\ActionColumn
 {
     public $header = '操作';
     public $headerOptions = ['class' => 'center'];
-    public $contentOptions = ['class' => 'text-center'];
-    public $template = '{detail} {edit} {delete}';
+    public $contentOptions = ['class' => 'center'];
+    public $template = '{detail} {update} {delete}';
     /**
      * Initializes the default button rendering callbacks.
      */
     protected function initDefaultButtons()
     {
         $this->initDefaultButton('detail', 'search-plus');
-        $this->initDefaultButton('edit', 'pencil');
+        $this->initDefaultButton('update', 'pencil');
         $this->initDefaultButton('delete', 'trash');
         $this->initDefaultButton('auth', 'cog');
     }
@@ -44,7 +44,7 @@ class ActionColumn extends \yii\grid\ActionColumn
                         $title = '详情';
                         $this->buttonOptions = ['class' => 'blue'];
                         break;
-                    case 'edit':
+                    case 'update':
                         $title = '编辑';
                         $this->buttonOptions = ['class' => 'green'];
                         break;
@@ -63,7 +63,7 @@ class ActionColumn extends \yii\grid\ActionColumn
                     'title' => $title,
                     'target' => '_blank'
                 ], $additionalOptions, $this->buttonOptions);
-                $icon = Html::tag('i', '', ['class' => "fa fa-$iconClass bigger-130"]);
+                $icon = Html::tag('i', '', ['class' => "fa fa-{$iconClass} bigger-130"]);
                 return Html::a($icon, [$url], $options);
             };
         }

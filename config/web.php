@@ -53,6 +53,19 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'logFile'=>'@runtime/logs/abnormal.log',
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile'=>'@runtime/logs/normal.log',
+                    'levels' => ['info','profile'],
+                    'logVars'=>['_GET', '_POST', '_COOKIE']
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile'=>'@runtime/logs/app.log',
+                    'levels' => ['trace'],
+                    'logVars'=>['_GET', '_POST', '_COOKIE']
                 ],
             ],
         ],
@@ -66,6 +79,16 @@ $config = [
         ],
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
+        ],
+        'i18n' => [
+            'translations' => [
+                'common' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'common' => 'common.php'
+                    ],
+                ],
+            ],
         ]
     ],
     'params' => $params,

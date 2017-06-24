@@ -27,7 +27,7 @@ LoginAsset::register($this);
 </head>
 <body  class="signin">
 <?php $this->beginBody() ?>
-<?= Alert::widget(['icon' => true, 'fixedTop' => true]) ?>
+<?= Alert::widget(['fixedTop' => true]) ?>
 <div class="signinpanel">
     <div class="row">
         <div class="col-sm-7"></div>

@@ -4,30 +4,30 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\widgets\Breadcrumbs;
-use cornernote\ace\widgets\Alert;
+use app\components\widgets\Alert;
 use app\components\widgets\Nav;
 use app\components\helpers\MenuHelper;
 
 AppAsset::register($this);
 $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hiddenMenu']);
 ?>
-<?php $this->beginPage() ?>
+<?php $this->beginPage(); ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta charset="UTF-8">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <meta charset="<?= Html::encode(Yii::$app->charset); ?>">
+    <?= Html::csrfMetaTags(); ?>
+    <title><?= Html::encode(Yii::$app->params['title']); ?></title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <?php $this->head() ?>
+    <?php $this->head(); ?>
 </head>
-<?php $this->beginBody() ?>
+<?php $this->beginBody(); ?>
 <body class="no-skin">
 <!-- 顶部start -->
 <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-container" id="navbar-container">
-        <?php if($showMenu === false): ?>
+        <?php if ($showMenu === false): ?>
         <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
             <span class="sr-only"><?= Yii::t('app', 'Toggle sidebar'); ?></span>
             <span class="icon-bar"></span>
@@ -39,7 +39,7 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
             <a href="<?= Yii::$app->homeUrl ?>" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    <?= Yii::$app->name ?>
+                    <?= Html::encode(Yii::$app->name); ?>
                 </small>
             </a>
         </div>
@@ -55,7 +55,7 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
 <!-- 顶部end -->
 <div class="main-container" id="main-container"  style="padding-top: 45px">
 
-    <?php if($showMenu === false): ?>
+    <?php if ($showMenu === false): ?>
     <!-- 左侧start -->
     <div id="sidebar" class="sidebar responsive">
         <div class="sidebar-shortcuts" id="sidebar-shortcuts">
@@ -91,13 +91,15 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
         <!-- 面包屑end-->
         <!-- 内容start -->
         <div class="page-content">
+            <?php if ($this->title): ?>
             <div class="page-header">
-                <h1><?= $this->title ?></h1>
+                <h1><?= Html::encode($this->title); ?></h1>
             </div>
+            <?php endif; ?>
             <div class="row">
                 <div class="col-xs-12">
-                    <?= Alert::widget() ?>
-                    <?= $content ?>
+                    <?= Alert::widget(); ?>
+                    <?= $content; ?>
                 </div>
             </div>
         </div>
@@ -109,8 +111,8 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
     <div class="footer">
         <div class="footer-inner">
             <div class="footer-content">
-                <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-                <p class="pull-right"><?= Yii::powered() ?></p>
+                <span class="pull-left">&copy; My Company <?= date('Y'); ?></span>
+                <span class="pull-right"><?= Yii::powered(); ?></span>
             </div>
         </div>
     </div>
@@ -120,6 +122,6 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
     <!-- 底部end -->
 </div>
 </body>
-<?php $this->endBody() ?>
+<?php $this->endBody(); ?>
 </html>
-<?php $this->endPage() ?>
+<?php $this->endPage(); ?>

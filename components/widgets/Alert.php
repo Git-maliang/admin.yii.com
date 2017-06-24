@@ -32,30 +32,27 @@ class Alert extends \yii\bootstrap\Widget
      * - $value is the bootstrap alert type (i.e. danger, success, info, warning)
      */
     public $alertTypes = [
-        'error'   => 'alert-danger',
-        'danger'  => 'alert-danger',
-        'success' => 'alert-success',
-        'info'    => 'alert-info',
-        'warning' => 'alert-warning'
+        'error' => [
+            'class' => 'alert-danger',
+            'icon' => '<i class="icon fa fa-ban"></i>',
+        ],
+        'danger' => [
+            'class' => 'alert-danger',
+            'icon' => '<i class="icon fa fa-close"></i>',
+        ],
+        'success' => [
+            'class' => 'alert-success',
+            'icon' => '<i class="icon fa fa-check"></i>',
+        ],
+        'info' => [
+            'class' => 'alert-info',
+            'icon' => '<i class="icon fa fa-info"></i>',
+        ],
+        'warning' => [
+            'class' => 'alert-warning',
+            'icon' => '<i class="icon fa fa-warning"></i>',
+        ],
     ];
-
-    /**
-     * 图标class
-     * @var array
-     */
-    public $alertIcons = [
-        'error'   => 'glyphicon-remove-sign',
-        'danger'  => 'glyphicon-question-sign',
-        'success' => 'glyphicon-ok-sign',
-        'info'    => 'glyphicon-info-sign',
-        'warning' => 'glyphicon-exclamation-sign'
-    ];
-
-    /**
-     *  是否显示图标
-     * @var bool
-     */
-    public $icon = false;
 
     /**
      * 是否固定到上方
@@ -88,18 +85,14 @@ class Alert extends \yii\bootstrap\Widget
                 $data = (array) $data;
                 foreach ($data as $i => $message) {
                     /* initialize css class for each alert box */
-                    $this->options['class'] = $this->alertTypes[$type] . $appendCss;
+                    $this->options['class'] = $this->alertTypes[$type]['class'] . $appendCss;
                     $this->options['class'] .= $this->fixedTop ? ' '. $this->fixedTopClass : '';
 
                     /* assign unique id to each alert box */
                     $this->options['id'] = $this->getId() . '-' . $type . '-' . $i;
 
-                    if($this->icon){
-                        $message = Html::tag('span', null, ['class' => 'glyphicon ' . $this->alertIcons[$type]]) . ' ' .$message;
-                    }
-
                     echo \yii\bootstrap\Alert::widget([
-                        'body' => $message,
+                        'body' => $this->alertTypes[$type]['icon'] . ' ' . $message,
                         'closeButton' => $this->closeButton,
                         'options' => $this->options,
                     ]);
