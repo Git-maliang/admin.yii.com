@@ -31,11 +31,13 @@ class ActiveForm extends \yii\bootstrap\ActiveForm
         if($this->module === self::TYPE_FORM){
             //$this->layout = 'horizontal';
         }else if($this->module === self::TYPE_SEARCH){
-            $this->layout = 'inline';
             $this->method = 'get';
             $this->action = Yii::$app->requestedAction->id;
             $this->errorCssClass = false;
             $this->successCssClass = false;
+            $this->options = [
+                'class' => 'form-inline'
+            ];
             $this->fieldConfig = [
                 'template' => '{label}{input}',
                 'options' => [
