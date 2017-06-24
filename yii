@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
-$SYSTEM_CONFIG = parse_ini_file(__DIR__.'/../system/SYSTEM_CONFIG') ;
+$SYSTEM_CONFIG = parse_ini_file(__DIR__.'/system/SYSTEM_CONFIG') ;
 
 if(isset($SYSTEM_CONFIG['YII_DEBUG']) &&  $SYSTEM_CONFIG['YII_DEBUG']){
     define('YII_DEBUG', true);

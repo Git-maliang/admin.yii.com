@@ -1,125 +1,189 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 2017/6/24
- * Time: 18:46
- */
 
 namespace app\components\widgets;
 
+use app\commands\SiteController;
+use yii\base\Widget;
+use yii\console\Exception;
 
-class WebSocket
+/**
+ * Class WebSocket
+ * @package app\components\widgets
+ */
+class WebSocket extends Widget
 {
-    public $log;
-    public $event;
-    public $class;
-    public $signets;
+    public $host = '127.0.0.1';
+    public $port = 8080;
+    public $log = true;
+    public $eventClass;
+    public $event = 'socketEvent';
     public $users;
-    public $master;
+    protected $socket;
+    protected $sockets;
 
-    public function __construct($config){
-        if (substr(php_sapi_name(), 0, 3) !== 'cli') {
-            die("请通过命令行模式运行!");
-        }
-        error_reporting(E_ALL);
-        set_time_limit(0);
-        ob_implicit_flush();
-        $this->event = $config['event'];
-        $this->log = $config['log'];
-
-        $this->master=$this->WebSocket($config['address'], $config['port']);
-        $this->sockets=array('s'=>$this->master);
-    }
-
+    /**
+     * 运行socket
+     */
     public function run()
     {
+        $this->createSocket();
+        $this->selectSocket();
+        return $this;
+    }
+
+    /**
+     * 检查服务启动系统
+     * @throws Exception
+     */
+    protected function initCheck()
+    {
+        if(substr(php_sapi_name(), 0, 3) !== 'cli'){
+            throw new Exception('请通过命令行模式运行!');
+        }
+    }
+
+    /**
+     * 创建 socket
+     * @return resource
+     */
+    public function createSocket()
+    {
+        $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        socket_set_option($this->socket, SOL_SOCKET, SO_REUSEADDR, 1);
+        socket_bind($this->socket, $this->host, $this->port);
+        socket_listen($this->socket);
+
+        $this->log('开始监听: ' . $this->host . ' : ' . $this->port);
+    }
+
+    /**
+     * 监听
+     */
+    public function selectSocket()
+    {
+        $this->sockets = ['s' => $this->socket];
         while(true){
-            $changes=$this->sockets;
-            @socket_select($changes,$write=NULL,$except=NULL,NULL);
-            foreach($changes as $sign){
-                if($sign==$this->master){
-                    $client=socket_accept($this->master);
-                    $this->sockets[]=$client;
+            // 阻塞用，有新连接时才会结束
+            socket_select($changes, $write = NULL, $except = NULL, NULL);
+            foreach($this->sockets as $socket){
+                // 客户连接socket
+                if($socket == $this->socket){
+                    // 如果请求来自监听端口那个套接字，则创建一个新的套接字用于通信
+                    $client = socket_accept($this->socket);
+                    $this->sockets[] = $client;
                     $user = array(
-                        'socket'=>$client,
-                        'hand'=>false,
+                        'socket' => $client,
+                        'hand' => false,
                     );
                     $this->users[] = $user;
-                    $k=$this->search($client);
-                    $eventreturn = array('k'=>$k,'sign'=>$sign);
-                    $this->eventoutput('in',$eventreturn);
+                    $key = $this->search($client);
+                    $this->eventOutput('in', ['key' => $key]);
                 }else{
-                    $len=socket_recv($sign,$buffer,2048,0);
-                    $k=$this->search($sign);
-                    $user = $this->users[$k];
-                    if($len<7){
-                        $this->close($sign);
-                        $eventreturn = array('k'=>$k,'sign'=>$sign);
-                        $this->eventoutput('out',$eventreturn);
+                    //  没消息的socket就跳过
+                    $len = socket_recv($socket, $message, 2048, 0);
+                    $key = $this->search($socket);
+                    if($len < 7){
+                        $this->closeSocket($socket);
+                        $this->eventOutput('out', ['key' => $key]);
                         continue;
                     }
-                    if(!$this->users[$k]['hand']){//没有握手进行握手
-                        $this->handshake($k,$buffer);
+                    // 没有握手进行握手
+                    if(!$this->users[$key]['hand']){
+                        $this->socketHandshake($key, $message);
                     }else{
-                        $buffer = $this->uncode($buffer);
-                        $eventreturn = array('k'=>$k,'sign'=>$sign,'msg'=>$buffer);
-                        $this->eventoutput('msg',$eventreturn);
+                        $message = $this->messageUnCode($message);
+                        $this->eventOutput('msg', ['key' => $key, 'socket' => $socket, 'message' => $message]);
                     }
                 }
             }
         }
     }
 
-    public function webSocket($address,$port)
+    /**
+     * 断开连接
+     * @param $socket
+     */
+    public function closeSocket($socket)
     {
-        $server = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        socket_set_option($server, SOL_SOCKET, SO_REUSEADDR, 1);
-        socket_bind($server, $address, $port);
-        socket_listen($server);
-        $this->log('开始监听: '.$address.' : '.$port);
-        return $server;
+        $key = array_search($socket, $this->sockets);
+        socket_close($socket);
+        unset($this->sockets[$key]);
+        unset($this->users[$key]);
     }
 
-    //通过标示遍历获取id
-    public function search($sign)
+    /**
+     * socket 握手
+     * @param $key
+     * @param $buffer
+     */
+    public function socketHandshake($key, $buffer)
     {
-        foreach ($this->users as $k=>$v){
-            if($sign==$v['socket'])
-                return $k;
+        $buf  = substr($buffer,strpos($buffer, 'Sec-WebSocket-Key:') + 18);
+        $socketKey  = trim(substr($buf,0,strpos($buf, "\r\n")));
+        $newKey = base64_encode(sha1($socketKey . "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", true));
+        $newMessage = "HTTP/1.1 101 Switching Protocols\r\n";
+        $newMessage .= "Upgrade: websocket\r\n";
+        $newMessage .= "Sec-WebSocket-Version: 13\r\n";
+        $newMessage .= "Connection: Upgrade\r\n";
+        $newMessage .= "Sec-WebSocket-Accept: " . $newKey . "\r\n\r\n";
+        socket_write($this->users[$key]['socket'], $newMessage, strlen($newMessage));
+        $this->users[$key]['hand']=true;
+    }
+
+    /**
+     * 搜索
+     * @param $socket
+     * @return bool|int|string
+     */
+    public function search($socket)
+    {
+        foreach ($this->users as $key => $val){
+            if($socket == $val['socket'])
+                return $key;
         }
         return false;
     }
 
-    //通过标示断开连接
-    public function close($sign)
+    /**
+     * 发送消息
+     * @param $socketId
+     * @param $message
+     * @return int
+     */
+    public function sendMessage($socketId, $message)
     {
-        $k=array_search($sign, $this->sockets);
-        socket_close($sign);
-        unset($this->sockets[$k]);
-        unset($this->users[$k]);
+        $message = $this->messageCode($message);
+        socket_send();
+        return socket_write($socketId, $message, strlen($message));
     }
 
-    public function handshake($k,$buffer)
+    /**
+     * 字符串加密
+     * @param $message
+     * @return string
+     */
+    public function messageCode($message)
     {
-        $buf  = substr($buffer,strpos($buffer,'Sec-WebSocket-Key:')+18);
-        $key  = trim(substr($buf,0,strpos($buf,"\r\n")));
-        $new_key = base64_encode(sha1($key."258EAFA5-E914-47DA-95CA-C5AB0DC85B11",true));
-        $new_message = "HTTP/1.1 101 Switching Protocols\r\n";
-        $new_message .= "Upgrade: websocket\r\n";
-        $new_message .= "Sec-WebSocket-Version: 13\r\n";
-        $new_message .= "Connection: Upgrade\r\n";
-        $new_message .= "Sec-WebSocket-Accept: " . $new_key . "\r\n\r\n";
-        socket_write($this->users[$k]['socket'],$new_message,strlen($new_message));
-        $this->users[$k]['hand']=true;
-        return true;
+        $message = preg_replace(array('/\r$/','/\n$/','/\r\n$/',), '', $message);
+        $frame = [];
+        $frame[0] = '81';
+        $len = strlen($message);
+        $frame[1] = $len <16 ? '0'. dechex($len): dechex($len);
+        $frame[2] = $this->ordHex($message);
+        $data = implode('', $frame);
+        return pack("H*", $data);
     }
 
-    public function uncode($str)
+    /**
+     * 字符串解密
+     * @param $message
+     * @return bool|string
+     */
+    public function messageUnCode($message)
     {
         $mask = array();
         $data = '';
-        $msg = unpack('H*',$str);
+        $msg = unpack('H*',$message);
         $head = substr($msg[1],0,2);
         if (hexdec($head{1}) === 8) {
             $data = false;
@@ -139,104 +203,40 @@ class WebSocket
         return $data;
     }
 
-    public function code($msg)
+    /**
+     * 字符串处理
+     * @param $data
+     * @return string
+     */
+    public function ordHex($data)
     {
-        $msg = preg_replace(array('/\r$/','/\n$/','/\r\n$/',), '', $msg);
-        $frame = array();
-        $frame[0] = '81';
-        $len = strlen($msg);
-        $frame[1] = $len<16?'0'.dechex($len):dechex($len);
-        $frame[2] = $this->ord_hex($msg);
-        $data = implode('',$frame);
-        return pack("H*", $data);
-    }
-
-    public function ord_hex($data)
-    {
-        $msg = '';
+        $message = '';
         $l = strlen($data);
         for ($i= 0; $i<$l; $i++) {
-            $msg .= dechex(ord($data{$i}));
+            $message .= dechex(ord($data{$i}));
         }
-        return $msg;
+        return $message;
     }
 
-    //通过id推送信息
-    public function idwrite($id,$t)
+    /**
+     * 事件回调
+     * @param $type
+     * @param null $event
+     * @return mixed
+     */
+    public function eventOutput($type, $event = null)
     {
-        if(!$this->users[$id]['socket']){return false;}//没有这个标示
-        $t=$this->code($t);
-        return socket_write($this->users[$id]['socket'],$t,strlen($t));
+        call_user_func([new $this->eventClass(), $this->event], $this, $type, $event);
     }
 
-    //通过标示推送信息
-    public function write($k,$t)
+    /**
+     * 输出日志
+     * @param $message
+     */
+    public function log($message)
     {
-        $t=$this->code($t);
-        return socket_write($k,$t,strlen($t));
-    }
-
-    //事件回调
-    public function eventoutput($type, $event)
-    {
-        $this->event($type, $event);
-        //call_user_func($this->event, $type, $event);
-    }
-
-    public function event($type,$event)
-    {
-        if('in'==$type){
-            echo $type;
-            $this->log('客户进入id:'.$event['k']);
-        }elseif('out'==$type){
-            echo $type;
-            $this->log('客户退出id:'.$event['k']);
-        }elseif('msg'==$type){
-            echo $type;
-            $this->log($event['k'].'消息:'.$event['msg']);
-            $this->roboot($event['sign'],$event['msg']);
-        }
-    }
-
-    public function roboot($sign,$t)
-    {
-        foreach($this->users as $val){
-            $this->write($val['socket'],$t);
-        }
-
-        switch ($t)
-        {
-            case 'hello':
-                $show= $sign;
-                break;
-            case 'name':
-                $show='Robot';
-                break;
-            case 'time':
-                $show='当前时间:'.date('Y-m-d H:i:s');
-                break;
-            case '再见':
-                $show='( ^_^ )/~~拜拜';
-                $this->write($sign,$show);
-                $this->close($sign);
-                return;
-                break;
-            case '天王盖地虎':
-                $array = ['小鸡炖蘑菇','宝塔震河妖','粒粒皆辛苦'];
-                $show = $array[rand(0,2)];
-                break;
-            default:
-                $show='( ⊙o⊙?)不懂,你可以尝试说:hello,name,time,再见,天王盖地虎.';
-        }
-        $this->write($sign,$show);
-    }
-
-    //控制台输出
-    public function log($t){
-        if($this->log)
-        {
-            $t=$t."\r\n";
-            fwrite(STDOUT, iconv('utf-8','gbk//IGNORE',$t));
+        if($this->log){
+            fwrite(STDOUT, iconv('utf-8', 'gbk//IGNORE', $message . "\r\n"));
         }
     }
 }

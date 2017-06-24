@@ -6,16 +6,12 @@ use app\components\widgets\WebSocket;
 
 class SiteController extends Controller
 {
+    /**
+     * socket服务
+     * @throws \Exception
+     */
     public function actionService()
     {
-        $config= [
-            'address' => '127.0.0.1',
-            'port' => '8080',
-            'event' => 'event',//回调函数的函数名
-            'log' => true,
-        ];
-
-        $webSocket = new WebSocket($config);
-        $webSocket->run();
+        WebSocket::widget(['eventClass' => 'app\components\events\WebSocketEvent']);
     }
 }
