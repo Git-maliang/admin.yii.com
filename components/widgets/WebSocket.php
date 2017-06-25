@@ -153,7 +153,6 @@ class WebSocket extends Widget
     public function sendMessage($socketId, $message)
     {
         $message = $this->messageCode($message);
-        socket_send();
         return socket_write($socketId, $message, strlen($message));
     }
 
