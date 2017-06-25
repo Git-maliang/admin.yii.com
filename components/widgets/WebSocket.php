@@ -64,7 +64,7 @@ class WebSocket extends Widget
         $this->sockets = ['s' => $this->socket];
         while(true){
             // 阻塞用，有新连接时才会结束
-            socket_select($changes, $write = NULL, $except = NULL, NULL);
+            socket_select($this->sockets, $write = NULL, $except = NULL, NULL);
             foreach($this->sockets as $socket){
                 // 客户连接socket
                 if($socket == $this->socket){
