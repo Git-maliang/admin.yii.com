@@ -5,7 +5,7 @@ use app\components\widgets\ActiveForm;
 
 /* @var $menus */
 
-$this->title = Yii::t('menu', 'Menu') . Yii::t('common', 'Sort Title');
+$this->title = Yii::t('module', 'Menu') . Yii::t('common', 'Sort Title');
 ?>
 <?php $form = ActiveForm::begin(); ?>
 <div class="widget-box  ui-sortable-handle">

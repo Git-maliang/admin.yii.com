@@ -96,10 +96,10 @@ $config = [
                         'button' => 'button.php'
                     ],
                 ],
-                'menu' => [
+                'module' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'fileMap' => [
-                        'menu' => 'menu.php'
+                        'module' => 'module.php'
                     ],
                 ],
             ],

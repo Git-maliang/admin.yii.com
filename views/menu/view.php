@@ -4,7 +4,7 @@ use app\components\widgets\DetailView;
 
 /* @var $model \app\models\Menu */
 
-$this->title = Yii::t('menu', 'Menu') . Yii::t('common', 'View Title');
+$this->title = Yii::t('module', 'Menu') . Yii::t('common', 'View Title');
 ?>
 <?= DetailView::widget([
     'model' => $model,

@@ -60,10 +60,11 @@ class ActionColumn extends \yii\grid\ActionColumn
                     default:
                         $title = ucfirst($name);
                 }
+
                 $options = array_merge([
-                    'title' => $title,
-                    'target' => '_blank'
-                ], $additionalOptions, $this->buttonOptions);
+                    'title' => $title
+                ],$name == 'delete' ? [] : ['target' == '_blank' ] ,$additionalOptions, $this->buttonOptions);
+
                 $icon = Html::tag('i', '', ['class' => "fa fa-{$iconClass} bigger-130"]);
                 return Html::a($icon, [$url], $options);
             };

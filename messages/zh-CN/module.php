@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'User' => '管理员',
+    'Admin' => '管理员',
     'Role' => '角色',
     'Permission' => '权限',
     'Menu' => '菜单',

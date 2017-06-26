@@ -6,7 +6,7 @@ use app\components\widgets\ActiveForm;
 
 /* @var $model \app\models\Menu */
 $isNewRecord = $model->isNewRecord;
-$this->title = Yii::t('common', $isNewRecord ? 'Create Title' : 'Update Title') . Yii::t('menu', 'Menu');
+$this->title = Yii::t('common', $isNewRecord ? 'Create Title' : 'Update Title') . Yii::t('module', 'Menu');
 ?>
 <?php $form = ActiveForm::begin(); ?>
 <?= $form->field($model, 'name'); ?>

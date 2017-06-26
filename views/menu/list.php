@@ -6,7 +6,7 @@ use app\components\widgets\GridView;
 /* @var $dataProvider \yii\data\ActiveDataProvider */
 /* @var $searchModel \app\models\search\MenuSearch */
 
-$this->title = Yii::t('menu', 'Menu') . Yii::t('common', 'List Title');
+$this->title = Yii::t('module', 'Menu') . Yii::t('common', 'List Title');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= $this->render('search', ['searchModel' => $searchModel]); ?>
