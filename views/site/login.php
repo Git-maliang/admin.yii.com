@@ -73,7 +73,7 @@ LoginAsset::register($this);
                         'title' => '看不清？点击图片更换'
                     ],
                 ]) ?>
-                <?= Html::submitButton('登录', ['class' => 'btn btn-warning btn-block']) ?>
+                <?= Html::submitButton(Yii::t('common', 'Login'), ['class' => 'btn btn-warning btn-block']) ?>
             <?php ActiveForm::end() ?>
         </div>
     </div>

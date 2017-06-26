@@ -13,16 +13,17 @@ use yii\helpers\Html;
 
 class ActionColumn extends \yii\grid\ActionColumn
 {
+    public $module;
     public $header = '操作';
     public $headerOptions = ['class' => 'center'];
     public $contentOptions = ['class' => 'center'];
-    public $template = '{detail} {update} {delete}';
+    public $template = '{view} {update} {delete}';
     /**
      * Initializes the default button rendering callbacks.
      */
     protected function initDefaultButtons()
     {
-        $this->initDefaultButton('detail', 'search-plus');
+        $this->initDefaultButton('view', 'search-plus');
         $this->initDefaultButton('update', 'pencil');
         $this->initDefaultButton('delete', 'trash');
         $this->initDefaultButton('auth', 'cog');
@@ -40,20 +41,20 @@ class ActionColumn extends \yii\grid\ActionColumn
         if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
             $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconClass, $additionalOptions) {
                 switch ($name) {
-                    case 'detail':
-                        $title = '详情';
+                    case 'view':
+                        $title = '查看' . $this->module;
                         $this->buttonOptions = ['class' => 'blue'];
                         break;
                     case 'update':
-                        $title = '编辑';
+                        $title = '更新' . $this->module;
                         $this->buttonOptions = ['class' => 'green'];
                         break;
                     case 'delete':
-                        $title = Yii::t('yii', 'Delete');
+                        $title = '删除'. $this->module;
                         $this->buttonOptions = ['class' => 'red'];
                         break;
                     case 'auth':
-                        $title = '授权';
+                        $title = $this->module . '授权';
                         $this->buttonOptions = ['class' => 'orange'];
                         break;
                     default:

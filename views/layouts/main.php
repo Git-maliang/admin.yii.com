@@ -46,7 +46,7 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
                 <li class="light-blue">
-                    <?= Html::a('<i class="ace-icon fa fa-sign-out"></i>退出', ['user/logout'], ['data-method' => 'post']); ?>
+                    <?= Html::a('<i class="ace-icon fa fa-sign-out"></i>' . Yii::t('common', 'Logout'), ['user/logout'], ['data-method' => 'post']); ?>
                 </li>
             </ul>
         </div>

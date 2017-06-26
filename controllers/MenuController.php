@@ -13,6 +13,7 @@ use app\models\search\MenuSearch;
  */
 class MenuController extends Controller
 {
+    
     /**
      * 列表
      * @return string
@@ -49,9 +50,9 @@ class MenuController extends Controller
      * 详情
      * @return string
      */
-    public function actionDetail()
+    public function actionView()
     {
-        return $this->render('detail',[
+        return $this->render('view',[
             'model' => $this->findModel()
         ]);
     }
@@ -72,10 +73,54 @@ class MenuController extends Controller
         return $this->redirect('list');
     }
 
+    /**
+     * 排序
+     * @return string
+     */
     public function actionSort()
     {
-        $menus = Menu::getMenus();
-        $this->varDumpPre($menus);die;
+        $request = Yii::$app->request;
+        if($request->isPost){
+            $data = $request->post('MENU', '');
+            if($data){
+                $trans = Yii::$app->db->beginTransaction();
+                try{
+                    // 处理一级菜单
+                    $sort = 1;
+                    foreach ($data as $val){
+                        $menu = Menu::findOne(['id' => intval($val['id']), 'pid' => 0]);
+                        if($menu){
+                            $menu->sort = $sort;
+                            $menu->save();
+                            unset($menu);
+                            $sort ++;
+                        }
+                        // 处理二级菜单
+                        if(isset($val['child']) && $val['child']){
+                            $childSort = 1;
+                            foreach($val['child'] as $v){
+                                $menu = Menu::findOne(['id' => intval($v), 'pid' => $val['id']]);
+                                if($menu){
+                                    $menu->sort = $childSort;
+                                    $menu->save();
+                                    unset($menu);
+                                    $childSort ++;
+                                }
+                            }
+                        }
+                    }
+                    $trans->commit();
+                    $this->alert(Yii::t('common', 'Sort Successfully'), self::ALERT_SUCCESS);
+                }catch (\Exception $e){
+                    $trans->rollBack();
+                    $this->alert(Yii::t('common', 'Sort Failure'));
+                }
+            }
+        }
+
+        return $this->render('sort',[
+            'menus' => Menu::getMenus()
+        ]);
     }
 
     /**

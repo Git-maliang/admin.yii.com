@@ -19,10 +19,12 @@ class GridView extends \yii\grid\GridView
     public $emptyText = '当前没有数据。';
     public $emptyTextOptions = ['class' => 'center'];
     public $pager = ['class' => 'app\components\widgets\LinkPager'];
-    public $layout = "{items}\n<div class=\"row\"><div class=\"col-sm-4 hidden-xs hidden-sm grey\">{summary}</div><div class=\"col-sm-8\"><div class=\"dataTables_paginate paging_simple_numbers\">{pager}</div></div></div>";
-    public $options = ['class' => 'dataTables_wrapper'];
-    public $summaryOptions = ['class' => 'dataTables_info'];
+    public $layout = "{items}\n<div class=\"row data-tables-page grey\"><div class=\"col-sm-4 hidden-xs hidden-sm \">{summary}</div><div class=\"col-sm-8\"><div class=\"dataTables_paginate paging_simple_numbers\">{pager}</div></div></div>";
+    public $options = ['class' => 'grid-view'];
+    public $summaryOptions = ['class' => 'summary'];
     public $tableOptions = ['class' => 'table table-striped table-bordered table-hover dataTable'];
+    public $pageSizeList = [10, 20, 30, 50];
+    public $filterSelector =  'select[name="per-page"],input[name="page"]';
 
     /**
      * Initializes the grid view.
@@ -63,22 +65,11 @@ class GridView extends \yii\grid\GridView
     {
         $pagination = $this->dataProvider->getPagination();
         if($count = $pagination->pageCount) {
-            $js = <<<EOD
-            $(".page-size").on("change", function () {
-                var pageSize = $(this).val(),
-                    pageLink = "{$pagination->createUrl(false)}";
-                    pageLink = pageLink.replace("per-page={$pagination->pageSize}", "per-page="+pageSize);
-                    window.location.href=pageLink;
-            });
-EOD;
-            $this->getView()->registerJs($js);
-            $items = [
-                10 => 10,
-                25 => 25,
-                50 => 50,
-                100 => 100
-            ];
-            return '显示' . Html::dropDownList(null, $pagination->pageSize, $items, ['class' => 'page-size sample-table-2_length']) . '条 - 共 ' . $count . ' 页 - 总计 ' . $this->dataProvider->getTotalCount() . ' 条数据';
+            $pageSizeList = [];
+            foreach ($this->pageSizeList as $value) {
+                $pageSizeList[$value] = $value;
+            }
+            return '每页 ' . Html::dropDownList($pagination->pageSizeParam, $pagination->pageSize, $pageSizeList, ['class' => 'page-size sample-table-2_length']) . ' 条 - 共 ' . $count . ' 页 - 总计 ' . $this->dataProvider->getTotalCount() . ' 条数据';
         }
     }
 

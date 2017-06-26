@@ -69,7 +69,9 @@ class Alert extends \yii\bootstrap\Widget
     /**
      * @var array the options for rendering the close button tag.
      */
-    public $closeButton = [];
+    public $closeButton = [
+        'label' => '<i class="fa fa-times"></i>',
+    ];
 
 
     public function init()

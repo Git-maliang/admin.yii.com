@@ -3019,43 +3019,6 @@
         ]
     },
     {
-        "name": "bower-asset/cornernote-ace",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/cornernote/ace.git",
-            "reference": "e39a3d29b7e33e5caf032221a3ab37de2e552b17"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/cornernote/ace/zipball/e39a3d29b7e33e5caf032221a3ab37de2e552b17",
-            "reference": "e39a3d29b7e33e5caf032221a3ab37de2e552b17",
-            "shasum": ""
-        },
-        "type": "bower-asset-library",
-        "extra": {
-            "bower-asset-main": "assets/css/ace.min.css",
-            "bower-asset-ignore": [
-                "**/.*",
-                "node_modules",
-                "bower_components",
-                "vendor/bower",
-                "test",
-                "tests"
-            ]
-        },
-        "installation-source": "dist",
-        "license": [
-            "MIT"
-        ],
-        "description": "Twitter bootstrap 3 admin template",
-        "keywords": [
-            "ace",
-            "theme"
-        ]
-    },
-    {
         "name": "bower-asset/jquery",
         "version": "2.2.4",
         "version_normalized": "2.2.4.0",
@@ -3500,5 +3463,92 @@
             "bower-asset-main": "dist/typeahead.bundle.js"
         },
         "installation-source": "dist"
+    },
+    {
+        "name": "yiisoft/yii2-redis",
+        "version": "2.0.6",
+        "version_normalized": "2.0.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yiisoft/yii2-redis.git",
+            "reference": "5dc55d5187923219e9db86d149d56acf1f5a6ee8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/yiisoft/yii2-redis/5dc55d5187923219e9db86d149d56acf1f5a6ee8.zip",
+            "reference": "5dc55d5187923219e9db86d149d56acf1f5a6ee8",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "~2.0.11"
+        },
+        "time": "2017-04-05T13:42:11+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii\\redis\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Carsten Brandt",
+                "email": "mail@cebe.cc"
+            }
+        ],
+        "description": "Redis Cache, Session and ActiveRecord for the Yii framework",
+        "keywords": [
+            "active-record",
+            "cache",
+            "redis",
+            "session",
+            "yii2"
+        ]
+    },
+    {
+        "name": "bower-asset/cornernote-ace",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/cornernote/ace.git",
+            "reference": "e39a3d29b7e33e5caf032221a3ab37de2e552b17"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/cornernote/ace/zipball/e39a3d29b7e33e5caf032221a3ab37de2e552b17",
+            "reference": "e39a3d29b7e33e5caf032221a3ab37de2e552b17",
+            "shasum": ""
+        },
+        "type": "bower-asset-library",
+        "extra": {
+            "bower-asset-main": "assets/css/ace.min.css",
+            "bower-asset-ignore": [
+                "**/.*",
+                "node_modules",
+                "bower_components",
+                "vendor/bower",
+                "test",
+                "tests"
+            ]
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Twitter bootstrap 3 admin template",
+        "keywords": [
+            "ace",
+            "theme"
+        ]
     }
 ]

@@ -41,7 +41,7 @@ class ActiveForm extends \yii\bootstrap\ActiveForm
             $this->fieldConfig = [
                 'template' => '{label}{input}',
                 'options' => [
-                    'class' => 'form-group mt-4',
+                    'class' => 'form-group mr-10',
                 ],
             ];
         }

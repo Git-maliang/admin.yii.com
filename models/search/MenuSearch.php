@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: M
- * Date: 17/6/23
- * Time: 上午10:37
- */
 
 namespace app\models\search;
 
@@ -13,37 +7,57 @@ use app\models\Menu;
 use yii\helpers\ArrayHelper;
 use yii\data\ActiveDataProvider;
 
+/**
+ * Class MenuSearch
+ * @package app\models\search
+ */
 class MenuSearch extends Menu
 {
-    public function scenarios()
+    /**
+     * @inheritdoc
+     */
+    public function rules()
     {
-        $scenarios = parent::scenarios();
-        $scenarios[Model::SCENARIO_DEFAULT] = array_merge(
-            $scenarios[Model::SCENARIO_DEFAULT],
-            ['name']
-        );
-        return $scenarios;
+        return [
+            [['id', 'sort', 'created_at'], 'integer'],
+            [['name', 'route', 'icon'], 'string', 'max' => 64],
+        ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        return Model::scenarios();
+    }
+
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
     public function search(Array $params)
     {
         $query = self::find();
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => ArrayHelper::getValue($params, 'per-page', 10)
             ],
         ]);
+
         $this->load($params);
+
         if(!$this->validate()) {
             return $dataProvider;
         }
 
-        if($this->name){
-            $query->andFilterWhere(['name' => $this->name]);
-        }
+        $query->andFilterWhere([
+            'name' => $this->name,
+            'route' => $this->route
+        ]);
 
-        $query->orderBy(['created_at' => SORT_DESC]);
         return $dataProvider;
     }
 }
