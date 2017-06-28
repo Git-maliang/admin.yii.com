@@ -69,7 +69,7 @@ class OperateLog extends \yii\db\ActiveRecord
             'describe' => '操作描述',
             'admin_id' => '操作人',
             'ip' => 'IP',
-            'created_at' => '添加时间',
+            'created_at' => '创建时间',
         ];
     }
 
@@ -94,7 +94,7 @@ class OperateLog extends \yii\db\ActiveRecord
      * 操作模块
      * @return array
      */
-    public function moduleArray()
+    public static function moduleArray()
     {
         return [
             self::EVENT_MODULE_ADMIN => '管理员信息',

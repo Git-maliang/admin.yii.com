@@ -43,9 +43,9 @@ $this->title = Yii::t('module', 'Menu') . Yii::t('common', 'Sort Title');
 </div>
 <?php $form::end(); ?>
 <?php
-$js = <<<JS
+$js = <<<EOD
     $('.dd').add('.myclass').nestable();
-JS;
+EOD;
 $this->registerCssFile('css/sort.min.css', ['depends' => 'app\assets\AppAsset']);
 $this->registerJsFile('js/jquery.nestable.min.js', ['depends' => 'app\assets\AppAsset']);
 $this->registerJs($js);

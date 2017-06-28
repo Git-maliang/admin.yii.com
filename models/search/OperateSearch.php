@@ -3,15 +3,15 @@
 namespace app\models\search;
 
 use yii\base\Model;
-use app\models\Menu;
 use yii\helpers\ArrayHelper;
+use app\models\OperateLog;
 use yii\data\ActiveDataProvider;
 
 /**
- * Class MenuSearch
+ * Class OperateSearch
  * @package app\models\search
  */
-class MenuSearch extends Menu
+class OperateSearch extends OperateLog
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class MenuSearch extends Menu
     public function rules()
     {
         return [
-            [['name', 'route'], 'string', 'max' => 64],
+            [['type', 'module', 'admin_id'], 'integer']
         ];
     }
 
@@ -53,8 +53,9 @@ class MenuSearch extends Menu
         }
 
         $query->andFilterWhere([
-            'name' => $this->name,
-            'route' => $this->route
+            'type' => $this->type,
+            'module' => $this->module,
+            'admin_id' => $this->admin_id
         ]);
 
         return $dataProvider;

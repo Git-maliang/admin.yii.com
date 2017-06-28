@@ -11,14 +11,14 @@ $config = [
     'bootstrap' => ['log'],
     'language'   => 'zh-CN',
     "modules" => [
-        "admin" => [
+        /*"admin" => [
             "class" => 'mdm\admin\Module',
             'mainLayout' => '@app/views/layouts/main.php',
             'layout' => 'left-menu',
-        ]
+        ]*/
     ],
     "aliases" => [
-        "@mdm/admin" => "@vendor/mdmsoft/yii2-admin",
+        /*"@mdm/admin" => "@vendor/mdmsoft/yii2-admin",*/
     ],
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
@@ -35,8 +35,9 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => 'app\models\Admin',
+            'enableAutoLogin' => false,
+            'authTimeout'     => 1800
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

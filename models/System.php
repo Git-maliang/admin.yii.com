@@ -56,22 +56,18 @@ class System extends Model
             'upload' => '上传文件',
         ];
     }
-
+    
     /**
-     * 获取登录信息
-     * @return System
+     * @inheritdoc
      */
     public function init()
     {
         $admin = Yii::$app->user->identity;
-        //$this->username = $admin->username;
-        $this->username = 'Admin';
+        $this->username = $admin->username;
         //$this->role = AuthAssignment::getUserRole();
         $this->role = '超级管理员';
-        //$this->lastTime = $admin->last_time ? date('Y-m-d H:i:s', $admin->last_time) : '';
-        $this->lastTime = date('Y-m-d H:i:s');
-        //$this->lastIp = $admin->last_ip ? long2ip($admin->last_ip): '';
-        $this->lastIp = Yii::$app->request->userIP;
+        $this->lastTime = $admin->last_at ? date('Y-m-d H:i:s', $admin->last_at) : '';
+        $this->lastIp = $admin->last_ip ? long2ip($admin->last_ip): '';
         $system = explode(' ', php_uname());
         $this->system = $system[0] .'&nbsp;' . ('/' == DIRECTORY_SEPARATOR ? $system[2] : $system[1]);
         $this->server = $_SERVER['SERVER_SOFTWARE'];
@@ -79,7 +75,5 @@ class System extends Model
         $this->php = 'PHP '. PHP_VERSION;
         $this->yii =  'Yii '. Yii::getVersion();
         $this->upload =  ini_get('upload_max_filesize');
-
-        parent::init();
     }
 }

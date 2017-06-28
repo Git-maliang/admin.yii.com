@@ -5,5 +5,5 @@ return [
     'Role' => '角色',
     'Permission' => '权限',
     'Menu' => '菜单',
-    'Operate' => '日志',
+    'Operate' => '操作日志',
 ];

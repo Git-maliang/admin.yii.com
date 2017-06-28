@@ -10,6 +10,8 @@ namespace app\components\i18n;
 
 use Yii;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yii\helpers\StringHelper;
 
 /**
  * Class Formatter
@@ -35,13 +37,13 @@ class Formatter extends \yii\i18n\Formatter
     /**
      * 从数组取出值
      * @param $value
-     * @param $items
+     * @param $array
      */
-    public function asItems($value, $items){
+    public function asArray($value, $array){
         if ($value === null) {
             return $this->nullDisplay;
         }
-        return isset($items[$value]) && $items[$value] ? $items[$value] : $this->nullDisplay;
+        return ArrayHelper::getValue($array, $value, $this->nullDisplay);
     }
 
     /**
@@ -80,5 +82,20 @@ class Formatter extends \yii\i18n\Formatter
             return $this->nullDisplay;
         }
         return $value ? date('Y-m-d H:i:s', $value) : '';
+    }
+
+    /**
+     * 字符串截取
+     * @param $value
+     * @param int $length
+     * @param string $suffix
+     * @return string
+     */
+    public function asTruncate($value, $length = 10, $suffix = '...')
+    {
+        if ($value === null) {
+            return $this->nullDisplay;
+        }
+        return StringHelper::truncate($value, $length, $suffix);
     }
 }

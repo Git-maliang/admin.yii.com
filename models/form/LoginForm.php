@@ -1,14 +1,15 @@
 <?php
 
-namespace app\models;
+namespace app\models\form;
 
 use Yii;
 use yii\base\Model;
+use app\models\Admin;
 
 /**
  * LoginForm is the model behind the login form.
  *
- * @property User|null $user This property is read-only.
+ * @property Admin|null $user This property is read-only.
  *
  */
 class LoginForm extends Model
@@ -16,7 +17,6 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $verifyCode;
-    public $rememberMe = true;
 
     private $_user = false;
 
@@ -63,6 +63,10 @@ class LoginForm extends Model
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, '用户名或密码错误。');
             }
+
+            if($user->status !== Admin::STATUS_ACTIVE){
+                $this->addError($attribute, '此用户已被禁用。');
+            }
         }
     }
 
@@ -73,7 +77,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            $result = Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            $result = Yii::$app->user->login($this->getUser(), Yii::$app->user->authTimeout);
             if($result === false){
                 Yii::$app->getSession()->setFlash('error', '登录失败');
             }
@@ -87,12 +91,12 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return Admin|null
      */
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Admin::findByUsername($this->username);
         }
 
         return $this->_user;

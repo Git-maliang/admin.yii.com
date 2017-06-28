@@ -33,7 +33,7 @@ class ActiveField extends \yii\bootstrap\ActiveField
         }
 
         if($options['label'] ){
-            $options['label'] .= '：';
+            Html::addCssClass($options, 'colon');
         }
 
         $this->parts['{label}'] = Html::activeLabel($this->model, $this->attribute, $options);
