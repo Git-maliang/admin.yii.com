@@ -36,6 +36,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\Admin',
+            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
             'enableAutoLogin' => false,
             'authTimeout'     => 1800
         ],

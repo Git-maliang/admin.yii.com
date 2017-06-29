@@ -2,6 +2,7 @@
 
 namespace app\models\search;
 
+use app\models\AuthItem;
 use yii\base\Model;
 use app\models\Admin;
 use yii\helpers\ArrayHelper;
@@ -20,14 +21,17 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['create_id', 'mobile', 'status'], 'integer', 'message'=>'{attribute}必须是整数。'],
-            [['username'], 'string', 'max' => 20, 'tooLong' => '{attribute}不能超过20个字符。'],
-            [['real_name'], 'string', 'min'=>2, 'max' => 4, 'tooShort' => '{attribute}不能小于2个汉字。', 'tooLong' => '{attribute}不能超过4个汉字。'],
-            [['real_name'], 'match', 'pattern' => MatchHelper::$chinese, 'message' => '{attribute}为2到4个汉字。'],
+            [['create_id', 'mobile', 'status'], 'integer'],
+            [['username'], 'string', 'max' => 20],
+            [['role'], 'string', 'max' => 64],
+            [['real_name'], 'string', 'min'=>2, 'max' => 4],
+            [['real_name'], 'match', 'pattern' => MatchHelper::$chinese, 'message' => '{attribute}只能为汉字。'],
             [['mobile'], 'match', 'pattern' => MatchHelper::$mobile, 'message' => '{attribute}格式不正确。'],
-            [['email'], 'string', 'max' => 50, 'tooLong' => '{attribute}不能超过50个字符。'],
-            [['email'], 'email', 'message' => '{attribute}格式不正确。'],
-            [['create_id'], 'in', 'range' => array_keys(Admin::adminArray()) ,'message' => '{attribute}不在有效范围内。'],
+            [['email'], 'string', 'max' => 50],
+            [['email'], 'email'],
+            [['create_id'], 'in', 'range' => array_keys(Admin::adminArray())],
+            [['status'], 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DISABLE]],
+            [['role'], 'in', 'range' => array_keys(AuthItem::roleArray())],
         ];
     }
 
@@ -45,7 +49,7 @@ class AdminSearch extends Admin
      */
     public function search(Array $params)
     {
-        $query = self::find();
+        $query = self::find()->innerJoinWith('role');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

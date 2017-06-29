@@ -20,10 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ['class' => 'yii\grid\CheckBoxColumn'],
         'id',
         'username',
+        'role.name',
         'real_name',
         'mobile:mobile',
         'email:email',
         ['attribute' => 'create_id', 'format' => ['array', Admin::adminArray()]],
-        'created_at:datetime'
+        ['attribute' => 'status', 'format' => ['array', Admin::$statusArray]],
+        'created_at:datetime',
+        ['class' => 'app\components\grid\ActionColumn', 'module' => Yii::t('module', 'Admin') ]
     ]
 ]); ?>

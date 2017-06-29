@@ -62,14 +62,14 @@ class System extends Model
      */
     public function init()
     {
-        $admin = Yii::$app->user->identity;
-        $this->username = $admin->username;
-        //$this->role = AuthAssignment::getUserRole();
+        $lastAt = Yii::$app->session->get('admin_last_at');
+        $lastIp = Yii::$app->session->get('admin_last_ip');
+        $this->username = Yii::$app->user->identity->username;
         $this->role = '超级管理员';
-        $this->lastTime = $admin->last_at ? date('Y-m-d H:i:s', $admin->last_at) : '';
-        $this->lastIp = $admin->last_ip ? long2ip($admin->last_ip): '';
+        $this->lastTime = $lastAt ? date('Y-m-d H:i:s', $lastAt) : '';
+        $this->lastIp = $lastIp ? long2ip($lastIp): '';
         $system = explode(' ', php_uname());
-        $this->system = $system[0] .'&nbsp;' . ('/' == DIRECTORY_SEPARATOR ? $system[2] : $system[1]);
+        $this->system = $system[0] .' ' . ('/' == DIRECTORY_SEPARATOR ? $system[2] : $system[1]);
         $this->server = $_SERVER['SERVER_SOFTWARE'];
         $this->mysql = Yii::$app->db->createCommand('SELECT VERSION() AS `version`')->queryScalar();
         $this->php = 'PHP '. PHP_VERSION;

@@ -24,6 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'route',
         'sort',
         'created_at:datetime',
-        ['class' => 'app\components\grid\ActionColumn', 'module' => '菜单']
+        ['class' => 'app\components\grid\ActionColumn', 'module' => Yii::t('module', 'Menu')]
     ]
 ]); ?>

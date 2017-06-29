@@ -68,12 +68,13 @@ class Menu extends \yii\db\ActiveRecord
     }
 
     /**
-     * 一级菜单
+     * 菜单
+     * @param int $pid
      * @return array
      */
-    public static function pidArray()
+    public static function childArray($pid = 0)
     {
-        return self::find()->select('name')->where(['pid' => 0])->indexBy('id')->asArray()->column();
+        return self::find()->select('name')->where(['pid' => $pid])->indexBy('id')->asArray()->column();
     }
 
     /**

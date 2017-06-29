@@ -23,7 +23,7 @@ class Controller extends \yii\web\Controller
     const ALERT_INFO = 'info';
     const ALERT_WARNING = 'warning';
 
-    public $operateId;
+    public $operateId = null;
     public $operateType;
     public $operateModule;
     public $operateDescribe = '';
@@ -104,7 +104,7 @@ class Controller extends \yii\web\Controller
      */
     protected function operateRecord()
     {
-        if($this->operateId){
+        if($this->operateId !== null){
             $operateLogEvent = new OperateLogEvent();
             $operateLogEvent->operateId = $this->operateId;
             $operateLogEvent->operateType = $this->operateType;
