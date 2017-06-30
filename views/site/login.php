@@ -46,14 +46,14 @@ LoginAsset::register($this);
                     'inputOptions' => [
                         'class' => 'form-control uname',
                         'placeholder' => '用户名',
-                        'autocomplete'=>'off',
+                        'autocomplete' => 'off',
                     ]
                 ]) ?>
                 <?= $form->field($model, 'password', [
                     'inputOptions' => [
                         'class' => 'form-control pword m-b',
                         'placeholder' => '密码',
-                        'autocomplete'=>'off',
+                        'autocomplete' => 'off',
                     ]
                 ])->passwordInput() ?>
                 <?= $form->field($model, 'verifyCode', [
@@ -63,7 +63,7 @@ LoginAsset::register($this);
                     'options' => [
                         'class' => 'form-control',
                         'placeholder' => '验证码',
-                        'autocomplete'=>'off',
+                        'autocomplete' => 'off',
                         'maxlength' => 4,
                         'style' => 'color: #333',
                     ],
