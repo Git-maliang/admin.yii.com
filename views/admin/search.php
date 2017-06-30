@@ -16,7 +16,7 @@ use app\components\widgets\ActiveForm;
 <?= $form->field($searchModel, 'create_id')->dropDownList(Admin::adminArray(), ['prompt' => Yii::t('common', 'All')]); ?>
 <?= $form->field($searchModel, 'status')->dropDownList(Admin::$statusArray, ['prompt' => Yii::t('common', 'All')]); ?>
 <div class="form-group">
-    <?= Html::submitButton(Yii::t('common', 'Search'), ['class' => 'btn btn-info mr-5 mt-5']); ?>
+    <?= Html::submitButton(Yii::t('common', 'Search'), ['class' => 'btn btn-info mr-5']); ?>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="hr dotted"></div>

@@ -12,7 +12,7 @@ use app\components\widgets\ActiveForm;
 <?= $form->field($searchModel, 'module')->dropDownList(OperateLog::moduleArray(), ['prompt' => Yii::t('common', 'All')]); ?>
 <?= $form->field($searchModel, 'admin_id')->dropDownList(Admin::adminArray(), ['prompt' => Yii::t('common', 'All')]); ?>
 <div class="form-group">
-    <?= Html::submitButton(Yii::t('common', 'Search'), ['class' => 'btn btn-info mr-5 mt-5']); ?>
+    <?= Html::submitButton(Yii::t('common', 'Search'), ['class' => 'btn btn-info mr-5']); ?>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="hr dotted"></div>
