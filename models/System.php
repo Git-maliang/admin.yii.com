@@ -62,10 +62,11 @@ class System extends Model
      */
     public function init()
     {
-        $lastAt = Yii::$app->session->get('admin_last_at');
-        $lastIp = Yii::$app->session->get('admin_last_ip');
-        $this->username = Yii::$app->user->identity->username;
-        $this->role = '超级管理员';
+        $session = Yii::$app->session;
+        $lastAt = $session->get('admin_last_at');
+        $lastIp = $session->get('admin_last_ip');
+        $this->username = $session->get('admin_username');
+        $this->role = $session->get('admin_role');
         $this->lastTime = $lastAt ? date('Y-m-d H:i:s', $lastAt) : '';
         $this->lastIp = $lastIp ? long2ip($lastIp): '';
         $system = explode(' ', php_uname());
