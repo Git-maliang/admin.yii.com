@@ -65,6 +65,12 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
                 <?= Html::a('<i class="ace-icon fa fa-users"></i>', null, ['class' => 'btn btn-warning']); ?>
                 <?= Html::a('<i class="ace-icon fa fa-signal"></i>', null, ['class' => 'btn btn-danger']); ?>
             </div>
+            <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                <?= Html::a('', null, ['class' => 'btn btn-success']); ?>
+                <?= Html::a('', null, ['class' => 'btn btn-info']); ?>
+                <?= Html::a('', null, ['class' => 'btn btn-warning']); ?>
+                <?= Html::a('', null, ['class' => 'btn btn-danger']); ?>
+            </div>
         </div>
         <!-- 左侧菜单start -->
         <?= Nav::widget(['items' => MenuHelper::getAssignedMenu()]); ?>
