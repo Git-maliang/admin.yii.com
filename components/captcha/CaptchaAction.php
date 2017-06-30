@@ -29,7 +29,7 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
     /**
      * @var int the font color. For example, 0x55FF00. Defaults to 0x2040A0 (blue color).
      */
-    public $foreColor = 0xFFFFFF;
+    public $foreColor = 0xFFA500;
     /**
      * @var int the minimum length for randomly generated word. Defaults to 6.
      */
