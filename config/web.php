@@ -10,22 +10,14 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language'   => 'zh-CN',
-    "modules" => [
-        /*"admin" => [
-            "class" => 'mdm\admin\Module',
-            'mainLayout' => '@app/views/layouts/main.php',
-            'layout' => 'left-menu',
-        ]*/
-    ],
-    "aliases" => [
-        /*"@mdm/admin" => "@vendor/mdmsoft/yii2-admin",*/
-    ],
+    /*'modules' => [],
+    'aliases' => [],
     'as access' => [
-        'class' => 'mdm\admin\components\AccessControl',
+        'class' => 'yii\filters\AccessControl',
         'allowActions' => [
             '*'
         ]
-    ],
+    ],*/
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -45,9 +37,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
