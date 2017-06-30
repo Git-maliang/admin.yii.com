@@ -15,6 +15,9 @@ use app\models\search\MenuSearch;
  */
 class MenuController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function beforeAction($action)
     {
         $this->operateModule = OperateLog::EVENT_MODULE_MENU;

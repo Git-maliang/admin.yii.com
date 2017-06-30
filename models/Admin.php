@@ -149,10 +149,12 @@ class Admin extends ActiveRecord implements IdentityInterface
     public static function loginRecord()
     {
         $model = self::findOne(Yii::$app->user->id);
+        $role = AuthAssignment::find()->select('item_name')->where(['admin_id' => Yii::$app->user->id])->scalar();
         // 记录上次登录记录
         $session = Yii::$app->session;
-        $session->set('admin_last_username', $model->last_at);
-        $session->set('admin_last_ip', $model->last_ip);
+        $session->set('admin_last_username', $model->username);
+        $session->set('admin_role', $role);
+        $session->set('admin_last_at', $model->last_at);
         $session->set('admin_last_ip', $model->last_ip);
         $model->last_at = time();
         $model->last_ip = ip2long(Yii::$app->request->userIP);

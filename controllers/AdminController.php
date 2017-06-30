@@ -18,6 +18,9 @@ use app\components\helpers\StringHelper;
  */
 class AdminController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function beforeAction($action)
     {
         $this->operateModule = OperateLog::EVENT_MODULE_ADMIN;

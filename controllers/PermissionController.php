@@ -1,22 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: M
- * Date: 17/6/27
- * Time: 上午7:53
- */
 
 namespace app\controllers;
 
-use yii\db\ActiveQuery;
-use app\models\AuthItemChild;
-use app\models\Menu;
 use Yii;
+use app\models\Menu;
+use yii\db\ActiveQuery;
 use app\models\AuthItem;
 use app\models\OperateLog;
+use app\models\AuthItemChild;
 use app\models\search\PermissionSearch;
 
-
+/**
+ * 权限
+ * Class PermissionController
+ * @package app\controllers
+ */
 class PermissionController extends Controller
 {
     /**
@@ -166,7 +164,7 @@ class PermissionController extends Controller
                 $menu = Menu::findOne(['route' => $model->name]);
                 if($menu === null){
                     // 关联关系
-                    $authItemChild =  AuthItemChild::find()->innerJoinWith(['parent0' => function(ActiveQuery $query){
+                    $authItemChild =  AuthItemChild::find()->innerJoinWith(['parentItem' => function(ActiveQuery $query){
                             $query->andWhere(['type' => AuthItem::TYPE_PERMISSION]);
                     }])->where(['child' => $model->name])->one();
                     if($authItemChild){

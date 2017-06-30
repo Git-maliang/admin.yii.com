@@ -1,18 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: M
- * Date: 17/6/27
- * Time: 上午7:54
- */
-
 namespace app\controllers;
 
 use Yii;
 use app\models\AuthItem;
 use app\models\OperateLog;
+use app\models\AuthItemChild;
 use app\models\search\RoleSearch;
 
+/**
+ * 角色
+ * Class RoleController
+ * @package app\controllers
+ */
 class RoleController extends Controller
 {
     /**
@@ -84,6 +83,54 @@ class RoleController extends Controller
             $this->alert(Yii::t('common','Delete Failure'));
         }
         return $this->redirect(Yii::$app->request->referrer);
+    }
+
+
+    /**
+     * 分配权限
+     * @return string
+     * @throws \yii\db\Exception
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionAuth()
+    {
+        $model = $this->findModel();
+
+        $request = Yii::$app->request;
+        if($request->isPost){
+            $postData = $request->post('checkbox');
+            if($postData){
+                $trans = Yii::$app->db->beginTransaction();
+                try{
+                    // 删除旧权限
+                    AuthItemChild::deleteAll(['parent' => $model->name]);
+                    // 添加新权限
+                    $authItemChild = new AuthItemChild();
+                    foreach ($postData as $val) {
+                        $_authItemChild = clone $authItemChild;
+                        $_authItemChild->parent = $model->name;
+                        $_authItemChild->child = $val;
+                        $_authItemChild->save(false);
+                        unset($_authItemChild);
+                    }
+                    $trans->commit();
+                    $this->alert(Yii::t('common', 'Auth Successfully'), self::ALERT_SUCCESS);
+                    $this->operateId = 0;
+                    $this->operateDescribe = '( '. $model->name .' )';
+
+                }catch (\Exception $e){
+                    $trans->rollBack();
+                    $this->alert(Yii::t('common', 'Auth Failure'));
+                }
+            }else{
+                $this->exception(Yii::t('common', 'Illegal Operation'));
+            }
+        }
+
+        $data = AuthItemChild::getRoleData($model->name);
+        return $this->render('auth', [
+            'data' => $data
+        ]);
     }
 
     /**

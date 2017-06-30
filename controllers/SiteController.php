@@ -8,7 +8,9 @@ use app\models\Admin;
 use app\models\System;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\AuthItemChild;
 use app\models\form\LoginForm;
+use app\components\helpers\MenuHelper;
 
 class SiteController extends \yii\web\Controller
 {
@@ -85,7 +87,10 @@ class SiteController extends \yii\web\Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
             Admin::loginRecord();
+            Yii::$app->cache->delete(MenuHelper::CACHE_MENU);
+            Yii::$app->cache->delete(AuthItemChild::CACHE_ALLOWED_ROUTE);
             return $this->goBack();
         }
         

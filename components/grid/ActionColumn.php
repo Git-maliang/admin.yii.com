@@ -9,7 +9,7 @@
 namespace app\components\grid;
 
 use Yii;
-use yii\helpers\Html;
+use app\components\helpers\Html;
 
 class ActionColumn extends \yii\grid\ActionColumn
 {
@@ -18,6 +18,7 @@ class ActionColumn extends \yii\grid\ActionColumn
     public $headerOptions = ['class' => 'center'];
     public $contentOptions = ['class' => 'center'];
     public $template = '{view} {update} {delete}';
+    public $field = 'id';
     /**
      * Initializes the default button rendering callbacks.
      */
@@ -40,6 +41,7 @@ class ActionColumn extends \yii\grid\ActionColumn
     {
         if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
             $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconClass, $additionalOptions) {
+
                 if(isset($model->visible) && $model->visible){
                     return '';
                 }
@@ -57,7 +59,7 @@ class ActionColumn extends \yii\grid\ActionColumn
                         $this->buttonOptions = ['class' => 'red'];
                         break;
                     case 'auth':
-                        $title = $this->module . '授权';
+                        $title = '权限分配';
                         $this->buttonOptions = ['class' => 'orange'];
                         break;
                     default:
@@ -67,8 +69,28 @@ class ActionColumn extends \yii\grid\ActionColumn
                 $options = array_merge(['title' => $title], $name == 'delete' ? [] : ['target' => '_blank' ] , $additionalOptions, $this->buttonOptions);
                 
                 $icon = Html::tag('i', '', ['class' => "fa fa-{$iconClass} bigger-130 mr-5"]);
-                return Html::a($icon, [$url], $options);
+                return Html::a($icon, $url, $options);
             };
+        }
+    }
+
+    /**
+     * Creates a URL for the given action and model.
+     * This method is called for each button and each row.
+     * @param string $action the button name (or action ID)
+     * @param \yii\db\ActiveRecordInterface $model the data model
+     * @param mixed $key the key associated with the data model
+     * @param int $index the current row index
+     * @return string the created URL
+     */
+    public function createUrl($action, $model, $key, $index)
+    {
+        if (is_callable($this->urlCreator)) {
+            return call_user_func($this->urlCreator, $action, $model, $key, $index, $this);
+        } else {
+            $params = is_array($key) ? $key : [(string) $this->field => (string) $key];
+            $params[0] = Yii::$app->controller->id . '/' . $action;
+            return $params;
         }
     }
 }

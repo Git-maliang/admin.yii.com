@@ -98,4 +98,12 @@ class Menu extends \yii\db\ActiveRecord
         }
         return $data;
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChild()
+    {
+        return $this->hasMany(AuthItemChild::className(), ['parent' => 'route']);
+    }
 }

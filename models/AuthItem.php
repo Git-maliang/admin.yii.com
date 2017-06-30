@@ -3,8 +3,7 @@
 namespace app\models;
 
 use Yii;
-use yii\db\ActiveQuery;
-use yii\web\NotFoundHttpException;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%auth_item}}".
@@ -85,9 +84,35 @@ class AuthItem extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Menu::className(), ['route' => 'name']);
     }
+    
+    /**
+     * 权限判断
+     * @param null $route
+     * @return bool
+     */
+    public static function can($route = null)
+    {
+        $role = Yii::$app->session->get('admin_role');
+        if($role) {
+            // 允许访问所有的权限
+            $allowedRole = Yii::$app->params['allowedRole'];
+            if (in_array($role, $allowedRole)) {
+                return false;
+            }
+            // 路由
+            $route = $route === null ?Yii::$app->controller->id . '/' . Yii::$app->controller->action->id : $route;
+           
+            $allowedRoute = AuthItemChild::allowedRoute($role);
+
+            if (in_array($route, ArrayHelper::merge($allowedRoute, Yii::$app->params['allowedRole']))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
-     * 角色
+     * 获取角色
      * @return array
      */
     public static function roleArray()

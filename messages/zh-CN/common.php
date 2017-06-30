@@ -18,7 +18,7 @@ return [
     'Create Title' => '创建',
     'Update Title' => '更新',
     'Delete Title' => '删除',
-    'Auth Title' => '授权',
+    'Auth Title' => '权限分配',
     'Disable Title' => '禁用',
     'Enable Title' => '启用',
     'View Title' => '详情',
@@ -37,4 +37,6 @@ return [
     'Delete Successfully' => '删除成功！',
     'Sort Failure' => '排序失败！',
     'Sort Successfully' => '排序成功！',
+    'Auth Failure' => '权限分配失败！',
+    'Auth Successfully' => '权限分配成功！',
 ];

@@ -6,4 +6,5 @@ return [
     'Create Admin' => '<i class="fa fa-plus"></i> 创建管理员',
     'Create Role' => '<i class="fa fa-plus"></i> 创建角色',
     'Create Permission' => '<i class="fa fa-plus"></i> 创建权限',
+    'Create Auth' => '<i class="fa  fa-wrench"></i> 权限分配',
 ];

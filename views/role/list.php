@@ -20,6 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'name',
         'describe',
         'created_at:datetime',
-        ['class' => 'app\components\grid\ActionColumn', 'module' => Yii::t('module', 'Role'), 'template' => '{update}{delete}']
+        ['class' => 'app\components\grid\ActionColumn', 'module' => Yii::t('module', 'Role'), 'template' => '{update}{delete}{auth}']
     ]
 ]); ?>

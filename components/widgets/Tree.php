@@ -176,6 +176,8 @@ class Tree extends Widget
                 }
             );
 EOD;
+        $this->getView()->registerCssFile('/js/layui/css/layui.css');
+        $this->getView()->registerJsFile('/js/layui/layui.js');
         $this->getView()->registerJs($js);
     }
 }

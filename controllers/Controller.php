@@ -8,6 +8,8 @@
 
 namespace app\controllers;
 
+use app\models\AuthItem;
+use app\models\AuthItemChild;
 use Yii;
 use yii\helpers\ArrayHelper;
 use app\models\OperateLog;
@@ -27,6 +29,7 @@ class Controller extends \yii\web\Controller
     public $operateType;
     public $operateModule;
     public $operateDescribe = '';
+
     protected $operateAction = [
         'create' => OperateLog::EVENT_TYPE_CREATE,
         'update' => OperateLog::EVENT_TYPE_UPDATE,
@@ -54,6 +57,10 @@ class Controller extends \yii\web\Controller
     {
         if(Yii::$app->user->isGuest){
             Yii::$app->end(Yii::$app->response->exitStatus, $this->redirect(['site/login']));
+        }
+        
+        if(AuthItem::can()){
+            
         }
 
         $this->operateType = ArrayHelper::getValue($this->operateAction, $action->id);
