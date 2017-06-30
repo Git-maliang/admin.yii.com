@@ -14,20 +14,20 @@ $this->title = 'H+后台管理系统 - 登录';
 
 LoginAsset::register($this);
 ?>
-<?php $this->beginPage() ?>
+<?php $this->beginPage(); ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?= Yii::$app->language; ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <meta charset="<?= Yii::$app->charset; ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+    <?= Html::csrfMetaTags(); ?>
+    <title><?= Html::encode($this->title); ?></title>
+    <?php $this->head(); ?>
 </head>
 <body  class="signin">
-<?php $this->beginBody() ?>
-<?= Alert::widget(['fixedTop' => true]) ?>
+<?php $this->beginBody(); ?>
+<?= Alert::widget(['fixedTop' => true]); ?>
 <div class="signinpanel">
     <div class="row">
         <div class="col-sm-7"></div>
@@ -39,7 +39,7 @@ LoginAsset::register($this);
                  'fieldConfig' => [
                      'template' => "{input}"
                  ]
-             ]) ?>
+             ]); ?>
                 <h4 class="no-margins">登录：</h4>
                 <p class="m-t-xs p-xxs">登录到H+后台管理系统</p>
                 <?= $form->field($model, 'username', [
@@ -48,14 +48,14 @@ LoginAsset::register($this);
                         'placeholder' => '用户名',
                         'autocomplete' => 'off',
                     ]
-                ]) ?>
+                ]); ?>
                 <?= $form->field($model, 'password', [
                     'inputOptions' => [
                         'class' => 'form-control pword m-b',
                         'placeholder' => '密码',
                         'autocomplete' => 'off',
                     ]
-                ])->passwordInput() ?>
+                ])->passwordInput(); ?>
                 <?= $form->field($model, 'verifyCode', [
                     'options' => ['class' => 'input-group'],
                 ])->widget(Captcha::className(), [
@@ -72,13 +72,13 @@ LoginAsset::register($this);
                         'style' => 'cursor: pointer',
                         'title' => '看不清？点击图片更换'
                     ],
-                ]) ?>
-                <?= Html::submitButton(Yii::t('common', 'Login'), ['class' => 'btn btn-warning btn-block']) ?>
-            <?php ActiveForm::end() ?>
+                ]); ?>
+                <?= Html::submitButton(Yii::t('common', 'Login'), ['class' => 'btn btn-warning btn-block']); ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
-<?php $this->endBody() ?>
+<?php $this->endBody(); ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+<?php $this->endPage(); ?>
