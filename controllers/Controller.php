@@ -60,7 +60,7 @@ class Controller extends \yii\web\Controller
         }
         
         if(AuthItem::can()){
-            
+            $this->exception('对不起，您现在还没获此操作的权限！');
         }
 
         $this->operateType = ArrayHelper::getValue($this->operateAction, $action->id);

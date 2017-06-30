@@ -12,6 +12,11 @@ use app\models\AuthItemChild;
 use app\models\form\LoginForm;
 use app\components\helpers\MenuHelper;
 
+/**
+ * 系统
+ * Class SiteController
+ * @package app\controllers
+ */
 class SiteController extends \yii\web\Controller
 {
     /**
