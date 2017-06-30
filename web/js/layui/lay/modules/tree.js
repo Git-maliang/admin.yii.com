@@ -98,7 +98,7 @@ layui.define("jquery", function(e) {
                     if(!this.checked){
                         childCheckboxCheckOrNot.call(this);
 
-                        r.cancelParentsCheckboxCheck(that);
+                        //r.cancelParentsCheckboxCheck(that);
                     }else{
                         r.parentsChecked(this,this.checked);
 
