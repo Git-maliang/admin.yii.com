@@ -29,7 +29,7 @@ $showMenu = in_array(Yii::$app->controller->action->id, Yii::$app->params['hidde
     <div class="navbar-container" id="navbar-container">
         <?php if ($showMenu === false): ?>
         <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-            <span class="sr-only"><?= Yii::t('app', 'Toggle sidebar'); ?></span>
+            <span class="sr-only"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

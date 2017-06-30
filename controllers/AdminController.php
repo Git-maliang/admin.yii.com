@@ -76,10 +76,18 @@ class AdminController extends Controller
     public function actionDelete()
     {
         $model = $this->findModel();
-        if($model->delete()){
-            $this->operateId = $model->id;
+        $authAssignment = AuthAssignment::findOne(['admin_id' => $model->id]);
+        $trans = Yii::$app->db->beginTransaction();
+        try{
+            $model->delete();
+            if($authAssignment){
+                $authAssignment->delete();
+            }
+            $trans->commit();
             $this->alert(Yii::t('common','Delete Successfully'), self::ALERT_SUCCESS);
-        }else{
+            $this->operateId = $model->id;
+        }catch (\Exception $e){
+            $trans->rollBack();
             $this->alert(Yii::t('common','Delete Failure'));
         }
         return $this->redirect(Yii::$app->request->referrer);
@@ -113,13 +121,24 @@ class AdminController extends Controller
             }
 
             if($model->load($request->post()) && $model->validate()){
-                if($model->save(false)){
+                $authAssignment = AuthAssignment::findOne(['admin_id' => $model->id]);
+                if($authAssignment === null){
+                    $authAssignment = new AuthAssignment();
+                }
+                $trans = Yii::$app->db->beginTransaction();
+                try{
+                    $model->save(false);
+                    $authAssignment->admin_id = $model->id;
+                    $authAssignment->item_name = $model->role;
+                    $authAssignment->save();
+                    $trans->commit();
                     $this->alert(Yii::t('common', $isNewRecord ? 'Create Successfully' : 'Update Successfully'), self::ALERT_SUCCESS);
                     $this->operateId = $model->id;
                     if($isNewRecord){
                         return $this->redirect('create');
                     }
-                }else{
+                }catch (\Exception $e){
+                    $trans->rollBack();
                     $this->alert(Yii::t('common', $isNewRecord ? 'Create Failure' : 'Update Failure'));
                 }
             }else{

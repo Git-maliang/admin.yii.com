@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Menu;
+use app\models\AuthItem;
 use app\models\OperateLog;
 use app\models\search\MenuSearch;
 
@@ -72,10 +73,19 @@ class MenuController extends Controller
     public function actionDelete()
     {
         $model = $this->findModel();
-        if($model->delete()){
+        $authItem = AuthItem::findOne(['name' => $model->route, 'type' => AuthItem::TYPE_PERMISSION]);
+        if($authItem === null){
+            $this->exception(Yii::t('common', 'Illegal Request'));
+        }
+        $trans = Yii::$app->db->beginTransaction();
+        try{
+            $model->delete();
+            $authItem->delete();
+            $trans->commit();
             $this->operateId = $model->id;
             $this->alert(Yii::t('common','Delete Successfully'), self::ALERT_SUCCESS);
-        }else{
+        }catch (\Exception $e){
+            $trans->rollBack();
             $this->alert(Yii::t('common','Delete Failure'));
         }
         return $this->redirect(Yii::$app->request->referrer);
@@ -144,14 +154,24 @@ class MenuController extends Controller
 
         $request = Yii::$app->request;
         if($request->isPost){
-            if($model->load($request->post()) && $model->validate()){
-                if($model->save(false)){
+            // 保存权限
+            $authItem = $isNewRecord ? new AuthItem() : AuthItem::findOne(['name' => $model->route, 'type' => AuthItem::TYPE_PERMISSION]);
+            if($authItem && $model->load($request->post()) && $model->validate()){
+                $authItem->name = $model->route;
+                $authItem->type = AuthItem::TYPE_PERMISSION;
+                $authItem->describe = $model->name;
+                $trans = Yii::$app->db->beginTransaction();
+                try{
+                    $model->save(false);
+                    $authItem->save(false);
+                    $trans->commit();
                     $this->alert(Yii::t('common', $isNewRecord ? 'Create Successfully' : 'Update Successfully'), self::ALERT_SUCCESS);
                     $this->operateId = $model->id;
                     if($isNewRecord){
                         return $this->redirect('create');
                     }
-                }else{
+                }catch (\Exception $e){
+                    $trans->rollBack();
                     $this->alert(Yii::t('common', $isNewRecord ? 'Create Failure' : 'Update Failure'));
                 }
             }else{

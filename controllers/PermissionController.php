@@ -8,6 +8,8 @@
 
 namespace app\controllers;
 
+use yii\db\ActiveQuery;
+use app\models\AuthItemChild;
 use app\models\Menu;
 use Yii;
 use app\models\AuthItem;
@@ -119,14 +121,26 @@ class PermissionController extends Controller
         $request = Yii::$app->request;
         if($request->isPost){
             if($model->load($request->post()) && $model->validate()){
-                if($model->save(false)){
+
+                $trans = Yii::$app->db->beginTransaction();
+                try{
+                    $model->save(false);
+                    // 关联菜单关系
+                    if($isNewRecord){
+                       $authItemChild = new AuthItemChild();
+                        $authItemChild->parent = Menu::find()->select('route')->where(['id' => $model->levelTwo])->scalar();
+                        $authItemChild->child = $model->name;
+                        $authItemChild->save(false);
+                    }
+                    $trans->commit();
                     $this->alert(Yii::t('common', $isNewRecord ? 'Create Successfully' : 'Update Successfully'), self::ALERT_SUCCESS);
                     $this->operateId = 0;
                     $this->operateDescribe = '( '. $model->name .' )';
                     if($isNewRecord){
                         return $this->redirect('create');
                     }
-                }else{
+                }catch (\Exception $e){
+                    $trans->rollBack();
                     $this->alert(Yii::t('common', $isNewRecord ? 'Create Failure' : 'Update Failure'));
                 }
             }else{
@@ -148,7 +162,23 @@ class PermissionController extends Controller
         $name = Yii::$app->request->get('id');
         if($name){
             if(($model = AuthItem::findOne(['name' => $name, 'type' => AuthItem::TYPE_PERMISSION])) !== null){
-                return $model;
+                // 菜单没有权限删除和编辑
+                $menu = Menu::findOne(['route' => $model->name]);
+                if($menu === null){
+                    // 关联关系
+                    $authItemChild =  AuthItemChild::find()->innerJoinWith(['parent0' => function(ActiveQuery $query){
+                            $query->andWhere(['type' => AuthItem::TYPE_PERMISSION]);
+                    }])->where(['child' => $model->name])->one();
+                    if($authItemChild){
+                        // 权限的父级
+                        $menu = Menu::findOne(['route' => $authItemChild->parent]);
+                        if($menu){
+                            $model->levelOne = $menu->pid;
+                            $model->levelTwo = $menu->id;
+                            return $model;
+                        }
+                    }
+                }
             }
         }
         $this->exception(Yii::t('common', 'Illegal Request'));

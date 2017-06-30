@@ -40,6 +40,9 @@ class ActionColumn extends \yii\grid\ActionColumn
     {
         if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
             $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconClass, $additionalOptions) {
+                if(isset($model->visible) && $model->visible){
+                    return '';
+                }
                 switch ($name) {
                     case 'view':
                         $title = '查看' . $this->module;

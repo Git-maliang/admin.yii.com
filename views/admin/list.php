@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ['class' => 'yii\grid\CheckBoxColumn'],
         'id',
         'username',
-        'role.name',
+        'roleName.item_name',
         'real_name',
         'mobile:mobile',
         'email:email',

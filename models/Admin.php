@@ -125,6 +125,14 @@ class Admin extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getRoleName()
+    {
+        return $this->hasOne(AuthAssignment::className(), ['admin_id' => 'id']);
+    }
+
+    /**
      * 管理员
      * @return array
      */
@@ -149,14 +157,6 @@ class Admin extends ActiveRecord implements IdentityInterface
         $model->last_at = time();
         $model->last_ip = ip2long(Yii::$app->request->userIP);
         $model->save();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getRole()
-    {
-        return $this->hasOne(AuthAssignment::className(), ['admin_id' => 'id']);
     }
 
     /**

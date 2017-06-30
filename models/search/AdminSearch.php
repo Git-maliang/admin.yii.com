@@ -2,9 +2,10 @@
 
 namespace app\models\search;
 
-use app\models\AuthItem;
 use yii\base\Model;
+use yii\db\ActiveQuery;
 use app\models\Admin;
+use app\models\AuthItem;
 use yii\helpers\ArrayHelper;
 use yii\data\ActiveDataProvider;
 use app\components\helpers\MatchHelper;
@@ -49,7 +50,7 @@ class AdminSearch extends Admin
      */
     public function search(Array $params)
     {
-        $query = self::find()->innerJoinWith('role');
+        $query = self::find()->joinWith('roleName');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -72,6 +73,13 @@ class AdminSearch extends Admin
             'create_id' => $this->create_id,
             'status' => $this->status
         ]);
+
+        if($role = $this->role){
+            $query->joinWith(['roleName' => function(ActiveQuery $query) use($role){
+                $query->andFilterWhere(['item_name' => $role]);
+            }]);
+        }
+
 
         return $dataProvider;
     }
