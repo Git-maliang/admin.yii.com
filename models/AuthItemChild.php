@@ -63,7 +63,7 @@ class AuthItemChild extends \yii\db\ActiveRecord
      */
     public function getChildItem()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'child']);
+        return $this->hasOne(AuthItem::className(), ['name' => 'child'])->orderBy(['created_at' => SORT_ASC]);
     }
     
     /**
@@ -95,7 +95,7 @@ class AuthItemChild extends \yii\db\ActiveRecord
         $permissions = AuthItemChild::find()->select('child')->where(['parent' => $role])->column();
         $menus = Menu::find()->joinWith(['child' => function(ActiveQuery $query){
             $query->joinWith('childItem');
-        }])->all();
+        }])->orderBy(['sort' => SORT_ASC])->all();
         $data = [];
         foreach ($menus as $menu){
             if($menu->pid){

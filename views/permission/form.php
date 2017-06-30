@@ -13,7 +13,7 @@ $this->title = Yii::t('common', $isNewRecord ? 'Create Title' : 'Update Title') 
 <?= $form->field($model, 'describe'); ?>
 <?= $form->field($model, 'name'); ?>
 <?= $form->field($model, 'levelOne')->dropDownList(Menu::childArray(), ['prompt' => '请选择',]); ?>
-<?= $form->field($model, 'levelTwo')->dropDownList($model->isNewRecord ? [] : Menu::childArray($model->levelOne), ['prompt' => '请选择']); ?>
+<?= $form->field($model, 'levelTwo')->dropDownList($model->levelOne ? Menu::childArray($model->levelOne) : [], ['prompt' => '请选择']); ?>
 <div class="form-group">
     <?= Html::submitButton(Yii::t('common', $isNewRecord ? 'Create' : 'Update'), ['class' => $isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
 </div>
